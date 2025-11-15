@@ -1,6 +1,6 @@
 # Dependency Injection & Clients
 
-The engine never calls external services on its own. Instead you inject concrete clients through `AuralyseEngineDeps`.
+The engine never calls external services on its own. Instead you inject concrete clients through `AuralyzeEngineDeps`.
 
 ## Interfaces
 
@@ -42,7 +42,7 @@ export interface FeedbackClient {
 ### Example: hybrid feedback implementation
 
 ```ts
-import { OpenAIFeedbackClient } from '@auralyse/engine';
+import { OpenAIFeedbackClient } from '@auralyze/engine';
 
 const llmClient = new OpenAIFeedbackClient({ model: 'gpt-4o-mini' });
 

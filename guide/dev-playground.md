@@ -20,4 +20,4 @@ Edit `FakeMetadataClient`, `FakeAnalysisClient`, or `DemoFeedbackClient` to mock
 - Genre-specific prompts
 - Experimenting with new schema fields
 
-Because the playground uses the public `runAuralyseSession` API, any behavior you observe matches what the API service would see.
+Because the playground uses the public `runAuralyzeSession` API, any behavior you observe matches what the API service would see.

@@ -19,13 +19,13 @@ export interface EngineState {
 
 ### FileInfo
 
-| Field | Type | Notes |
-| --- | --- | --- |
-| `durationSec` | `number` | Seconds. |
-| `format` | `string` | Codec/container (wav, flac, mp3). |
-| `sampleRate` | `number` | Hertz. |
-| `channels` | `number` | Channel count. |
-| `bitrate?` | `number` | Optional for lossy uploads. |
+| Field         | Type     | Notes                             |
+| ------------- | -------- | --------------------------------- |
+| `durationSec` | `number` | Seconds.                          |
+| `format`      | `string` | Codec/container (wav, flac, mp3). |
+| `sampleRate`  | `number` | Hertz.                            |
+| `channels`    | `number` | Channel count.                    |
+| `bitrate?`    | `number` | Optional for lossy uploads.       |
 
 ### Analysis block
 
@@ -45,7 +45,7 @@ Each sub-object is optional to keep backward compatibility. Populate whichever m
 The exported Zod schemas (`EngineStateSchema`, `FileInfoSchema`, `AnalysisSchema`, etc.) let you validate inbound state or persisted payloads:
 
 ```ts
-import { EngineStateSchema } from '@auralyse/engine';
+import { EngineStateSchema } from '@auralyze/engine';
 
 const parsed = EngineStateSchema.parse(payloadFromDb);
 ```

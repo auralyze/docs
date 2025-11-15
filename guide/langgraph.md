@@ -1,6 +1,6 @@
 # LangGraph Workflow
 
-The entire engine runtime is defined in `src/graph/auralyse-graph.ts`. The graph contains five nodes executed sequentially:
+The entire engine runtime is defined in `src/graph/auralyze-graph.ts`. The graph contains five nodes executed sequentially:
 
 1. `validateInput`
 2. `metadataStep`
@@ -18,13 +18,13 @@ flowchart LR
 
 ## Node-by-node behavior
 
-| Node | Purpose | Short-circuit behavior |
-| --- | --- | --- |
-| `validateInput` | Ensures `uploadUrl` exists. | Sets `error` and terminates. |
-| `metadataStep` | Calls `audioMetadataClient.getMetadata`. | Stores `fileInfo` or sets `error`. |
-| `analysisStep` | Calls `audioAnalysisClient.analyze`. | Stores `analysis` or sets `error`. |
-| `feedbackStep` | Calls `feedbackClient.generateFeedback`. | Stores `feedbackText` + `suggestions` or sets `error`. |
-| `finalize` | Reserved for derived fields or normalization. | Always runs; currently passthrough. |
+| Node            | Purpose                                       | Short-circuit behavior                                 |
+| --------------- | --------------------------------------------- | ------------------------------------------------------ |
+| `validateInput` | Ensures `uploadUrl` exists.                   | Sets `error` and terminates.                           |
+| `metadataStep`  | Calls `audioMetadataClient.getMetadata`.      | Stores `fileInfo` or sets `error`.                     |
+| `analysisStep`  | Calls `audioAnalysisClient.analyze`.          | Stores `analysis` or sets `error`.                     |
+| `feedbackStep`  | Calls `feedbackClient.generateFeedback`.      | Stores `feedbackText` + `suggestions` or sets `error`. |
+| `finalize`      | Reserved for derived fields or normalization. | Always runs; currently passthrough.                    |
 
 Each node receives the entire `EngineState` and returns a partial state. LangGraph merges the result into the canonical state object.
 

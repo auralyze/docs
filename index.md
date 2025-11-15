@@ -1,6 +1,6 @@
-# Auralyse Engine Documentation
+# Auralyze Engine Documentation
 
-Welcome to the official docs for `@auralyse/engine`, the LangGraph-powered workflow engine that drives mix and mastering insights for Auralyse. The engine orchestrates session validation, metadata enrichment, DSP analysis, and LLM-driven feedback without binding you to any HTTP server or infrastructure stack.
+Welcome to the official docs for `@auralyze/engine`, the LangGraph-powered workflow engine that drives mix and mastering insights for Auralyze. The engine orchestrates session validation, metadata enrichment, DSP analysis, and LLM-driven feedback without binding you to any HTTP server or infrastructure stack.
 
 ## Why this engine exists
 
@@ -22,7 +22,7 @@ Welcome to the official docs for `@auralyse/engine`, the LangGraph-powered workf
 
 ```mermaid
 flowchart LR
-  A[runAuralyseSession] --> B[validateInput]
+  A[runAuralyzeSession] --> B[validateInput]
   B --> C[metadataStep]
   C --> D[analysisStep]
   D --> E[feedbackStep]
@@ -30,7 +30,7 @@ flowchart LR
   F --> G[EngineState]
 ```
 
-1. Call `runAuralyseSession(input, deps)` from your API tier.
+1. Call `runAuralyzeSession(input, deps)` from your API tier.
 2. LangGraph executes the five nodes in sequence, short-circuiting when errors occur.
 3. The resulting `EngineState` includes metadata, analysis results, and LLM insight text/suggestions or an error message your API can relay to clients.
 

@@ -1,26 +1,26 @@
 # Getting Started
 
-This guide shows how to install `@auralyse/engine`, wire your dependency clients, and invoke the workflow from another service.
+This guide shows how to install `@auralyze/engine`, wire your dependency clients, and invoke the workflow from another service.
 
 ## Installation
 
 ```bash
-npm install @auralyse/engine
+npm install @auralyze/engine
 ```
 
 The package ships ESM + CJS bundles and TypeScript declarations so you can consume it from any Node 18+ project.
 
 ## Minimum dependencies
 
-Provide three clients when calling `runAuralyseSession`:
+Provide three clients when calling `runAuralyzeSession`:
 
 ```ts
 import {
-  runAuralyseSession,
-  type AuralyseEngineDeps,
-} from '@auralyse/engine';
+  runAuralyzeSession,
+  type AuralyzeEngineDeps,
+} from '@auralyze/engine';
 
-const deps: AuralyseEngineDeps = {
+const deps: AuralyzeEngineDeps = {
   audioMetadataClient: {
     async getMetadata({ url }) {
       // your ffprobe microservice or storage metadata
@@ -63,7 +63,7 @@ const deps: AuralyseEngineDeps = {
   },
 };
 
-const engineState = await runAuralyseSession(
+const engineState = await runAuralyzeSession(
   {
     sessionId: 'mix-42',
     uploadUrl: 'https://cdn.example.com/uploads/mix.wav',
@@ -81,22 +81,22 @@ const engineState = await runAuralyseSession(
 
 ## Scripts
 
-| Command | Description |
-| --- | --- |
-| `npm run lint` | ESLint against `src/**/*.ts` |
-| `npm run typecheck` | `tsc --noEmit` |
-| `npm test -- --run` | Vitest |
-| `npm run test -- --coverage --run` | Vitest with coverage |
-| `npm run build` | `tsup` build to `dist/` |
-| `npm run dev` | `ts-node` playground with fake clients |
-| `npm run docs:dev` | VitePress docs dev server |
-| `npm run docs:build` | Build static docs to `docs/.vitepress/dist` |
+| Command                            | Description                                 |
+| ---------------------------------- | ------------------------------------------- |
+| `npm run lint`                     | ESLint against `src/**/*.ts`                |
+| `npm run typecheck`                | `tsc --noEmit`                              |
+| `npm test -- --run`                | Vitest                                      |
+| `npm run test -- --coverage --run` | Vitest with coverage                        |
+| `npm run build`                    | `tsup` build to `dist/`                     |
+| `npm run dev`                      | `ts-node` playground with fake clients      |
+| `npm run docs:dev`                 | VitePress docs dev server                   |
+| `npm run docs:build`               | Build static docs to `docs/.vitepress/dist` |
 
 ## Environments and secrets
 
-| Variable | Purpose |
-| --- | --- |
-| `OPENAI_API_KEY` | Required for `OpenAIFeedbackClient`; the engine never hardcodes keys. |
+| Variable             | Purpose                                                                                                                                    |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `OPENAI_API_KEY`     | Required for `OpenAIFeedbackClient`; the engine never hardcodes keys.                                                                      |
 | `DOCS_PUBLISH_TOKEN` | Personal access token used by the docs workflow to push built artifacts to the public docs repo (see [Releasing & CI/CD](./releasing.md)). |
 
 You now have a minimal integration. Continue to the next sections to understand state modeling, LangGraph execution, and tooling.
