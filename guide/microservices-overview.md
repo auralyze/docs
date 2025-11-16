@@ -7,7 +7,7 @@ and engine can stay lean:
 | --- | --- | --- | --- |
 | Audio Metadata Service | `/audio-metadata-service` | `POST /metadata` | Wraps `ffprobe` to return duration, format, sample rate, channels, bitrate. |
 | Audio Analysis Service | `/audio-analysis-service` | `POST /analysis` | Runs `ffmpeg` (`ebur128` + `astats`) to produce loudness, crest factor, spectrum, and stereo width heuristics. |
-| Audio Feedback Service | `/audio-feedback-service` | `POST /feedback` | Stub feedback generator; future home for deterministic rules or a managed LLM service. |
+| Audio Feedback Service | `/audio-feedback-service` | `POST /feedback` | Calls OpenAI using the engine’s `fileInfo`/`analysis` payload to return `{ feedbackText, suggestions[] }`. |
 
 All three services share the same structure:
 
