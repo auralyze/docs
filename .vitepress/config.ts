@@ -26,6 +26,7 @@ export default defineConfig({
           { text: 'Session State & Schemas', link: '/guide/session-state' },
           { text: 'LangGraph Workflow', link: '/guide/langgraph' },
           { text: 'Dependency Injection & Clients', link: '/guide/clients' },
+          { text: 'Audio Metadata Service', link: '/guide/audio-metadata-service' },
           { text: 'Prompting & Feedback', link: '/guide/prompting' },
         ],
       },
