@@ -36,6 +36,7 @@ export interface FeedbackClient {
 ### Feedback client tips
 
 - `OpenAIFeedbackClient` lives in `src/config/llm.ts` and expects `OPENAI_API_KEY`.
+- `HttpAudioFeedbackClient` (in the API repo) uses the `audio-feedback-service`. Set `FEEDBACK_MODE=service` and provide `FEEDBACK_SERVICE_URL` + `FEEDBACK_SERVICE_API_KEY` to exercise it.
 - You can wrap Claude, Gemini, or an internal rule engine so long as you return `{ feedbackText, suggestions[] }`.
 - The client receives the entire `EngineState` so you can make decisions based on metadata, genre, or analysis gaps.
 

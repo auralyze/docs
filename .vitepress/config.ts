@@ -27,6 +27,8 @@ export default defineConfig({
           { text: 'LangGraph Workflow', link: '/guide/langgraph' },
           { text: 'Dependency Injection & Clients', link: '/guide/clients' },
           { text: 'Audio Metadata Service', link: '/guide/audio-metadata-service' },
+          { text: 'Audio Analysis Service', link: '/guide/audio-analysis-service' },
+          { text: 'Audio Feedback Service', link: '/guide/audio-feedback-service' },
           { text: 'Prompting & Feedback', link: '/guide/prompting' },
         ],
       },
