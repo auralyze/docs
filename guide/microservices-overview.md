@@ -6,7 +6,7 @@ and engine can stay lean:
 | Service | Repo Folder | Endpoint | Purpose |
 | --- | --- | --- | --- |
 | Audio Metadata Service | `/audio-metadata-service` | `POST /metadata` | Wraps `ffprobe` to return duration, format, sample rate, channels, bitrate. |
-| Audio Analysis Service | `/audio-analysis-service` | `POST /analysis` | Placeholder today; future DSP pipeline to compute loudness, stereo, spectrum, etc. |
+| Audio Analysis Service | `/audio-analysis-service` | `POST /analysis` | Runs `ffmpeg` (`ebur128` + `astats`) to produce loudness, crest factor, spectrum, and stereo width heuristics. |
 | Audio Feedback Service | `/audio-feedback-service` | `POST /feedback` | Stub feedback generator; future home for deterministic rules or a managed LLM service. |
 
 All three services share the same structure:

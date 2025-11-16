@@ -1,24 +1,30 @@
 # Audio Analysis Service
 
-The `audio-analysis-service` is a scaffolded Express microservice that mirrors
-the metadata service’s tooling but focuses on the DSP-heavy analysis stage
-(`POST /analysis`). It currently returns stubbed data so you can exercise the API
-end-to-end while the actual analysis pipeline is under construction.
+The `audio-analysis-service` computes lightweight DSP metrics using `ffmpeg`
+filters (`ebur128` + `astats`) and exposes them via `POST /analysis`. It returns
+objects that conform to the engine’s `AnalysisSchema` (loudness, dynamics,
+spectrum, stereo width).
 
-- Auth is handled via `x-api-key` (`AUDIO_ANALYSIS_API_KEY`, sync via
-  `npm run analysis:api-key` inside `/api`).
-- Env defaults live in `/audio-analysis-service/.env` (`PORT=4002`).
-- The HTTP surface expects `{ path: "/abs/path" }` and returns an
-  `Analysis` object matching `@auralyze/engine`.
-- `npm run dev`, `npm test`, `npm run lint`, etc. are all wired up just like the
-  metadata service.
+- Auth via `x-api-key` (`AUDIO_ANALYSIS_API_KEY`). Sync the key into the API
+  with `npm run analysis:api-key`.
+- Default env lives in `/audio-analysis-service/.env` (`PORT=4002`,
+  `FFMPEG_PATH=ffmpeg` if you want to override the bundled `ffmpeg-static`).
+- Request body: `{ "path": "/abs/path" }`.
+- Response: `{ loudness, dynamics, spectrum, stereo }` where loudness fields are
+  real LUFS/LRA/TP readings and the other sections are heuristics derived from
+  RMS stats.
+- Tooling mirrors the other services (ts-node-dev, ESLint, Vitest, Prettier).
 
-## Why scaffold a separate service?
+## Implementation Highlights
 
-- Keeps ffprobe/analysis dependencies out of the API runtime.
-- Allows independent scaling (heavy DSP vs. REST traffic).
-- Provides a well-defined contract for experimentation (swap in Python workers,
-  GPU pipelines, etc.).
+- `FfmpegAudioAnalysisService` executes two commands:
+  - `ebur128=metadata=1:peak=true` for integrated loudness, loudness range, true
+    peak.
+  - `astats=metadata=1` for RMS levels, crest factor, RMS difference (used as a
+    stereo width proxy).
+- The service derives normalized low/mid/high spectrum scores and a width score
+  from those statistics, so even short clips get deterministic metrics.
+- Errors from ffmpeg are surfaced as 500s with descriptive messages.
 
-When you’re ready, replace the `StubAudioAnalysisService` with your real DSP
-implementation and expand the tests to cover your pipeline’s outputs.
+You can replace the internal implementation with a Python microservice or GPU
+pipeline later; just ensure you continue returning the `Analysis` shape.
