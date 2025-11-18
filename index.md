@@ -1,37 +1,173 @@
-# Auralyze Engine Documentation
+# Auralyze Documentation
 
-Welcome to the official docs for `@auralyze/engine`, the LangGraph-powered workflow engine that drives mix and mastering insights for Auralyze. The engine orchestrates session validation, metadata enrichment, DSP analysis, and LLM-driven feedback without binding you to any HTTP server or infrastructure stack.
+Welcome to the comprehensive documentation for Auralyze, an AI-powered audio analysis platform that provides intelligent mix feedback to music producers.
 
-## Why this engine exists
+## Platform Overview
 
-- **Consistent session state** – normalized Zod schemas keep metadata, analysis blocks, and user context stable across services.
-- **Composable LangGraph nodes** – validation, metadata, analysis, feedback, and finalize steps are explicitly modeled and easy to extend.
-- **Dependency injection first** – hosts provide the concrete audio metadata, DSP, and feedback clients; the engine never talks to ffmpeg or OpenAI directly on its own.
-- **Portable Node library** – publishable package with strict TypeScript types, vitest coverage, ESLint, and tsup builds for ESM + CJS.
+Auralyze combines audio engineering expertise with large language models to deliver actionable feedback on audio mixes. The platform consists of:
 
-## Fast links
+- **Engine** – LangGraph-powered workflow orchestration (`@auralyze/engine`)
+- **Main API** – Authentication, session management, workflow coordination
+- **Microservices** – Metadata extraction, DSP analysis, AI feedback generation
+- **Web App** – React-based user interface
 
-- [Getting Started](./guide/getting-started.md)
-- [Session State & Schemas](./guide/session-state.md)
-- [LangGraph workflow](./guide/langgraph.md)
-- [Prompting and Feedback](./guide/prompting.md)
-- [Testing strategy](./guide/testing.md)
-- [Release & CI/CD](./guide/releasing.md)
+## Documentation Sections
 
-## At a glance
+### 🚀 Getting Started
 
-```mermaid
-flowchart LR
-  A[runAuralyzeSession] --> B[validateInput]
-  B --> C[metadataStep]
-  C --> D[analysisStep]
-  D --> E[feedbackStep]
-  E --> F[finalize]
-  F --> G[EngineState]
+New to Auralyze? Start here.
+
+- [Getting Started](./guide/getting-started.md) - Installation and first workflow
+- [Reading Path](./guide/onboarding/reading-path.md) - Recommended learning path for new engineers
+- [Dev Playground](./guide/dev-playground.md) - Experiment with the engine
+- [Contributing](./guide/onboarding/contributing.md) - Code standards and review process
+
+### 📚 Domain Knowledge
+
+Core technical concepts across audio, security, and data.
+
+- [Audio Fundamentals](./guide/domain/audio-fundamentals.md) - LUFS, dynamics, spectrum, stereo imaging
+- [Security Model](./guide/domain/security-model.md) - JWT, bcrypt, API keys, threat model
+- [Database Patterns](./guide/domain/database-patterns.md) - Prisma ORM, indexing, queries
+- [Communication Patterns](./guide/domain/communication-patterns.md) - HTTP clients, error handling
+
+### 🏗️ System Architecture
+
+High-level design and architectural decisions.
+
+- [System Overview](./guide/architecture/system-overview.md) - Component diagram and data flow
+- [Session Lifecycle](./guide/architecture/session-lifecycle.md) - End-to-end session flow
+- [Design Decisions](./guide/architecture/design-decisions.md) - Architectural rationale and trade-offs
+
+### ⚙️ Engine Architecture
+
+Workflow orchestration and dependency injection.
+
+- [Session State & Schemas](./guide/session-state.md) - Immutable state management
+- [LangGraph Workflow](./guide/langgraph.md) - Graph-based orchestration
+- [Dependency Injection & Clients](./guide/clients.md) - Interface abstraction
+- [Prompting & Feedback](./guide/prompting.md) - LLM integration
+
+### 🔌 Platform Services
+
+Microservices that power the platform.
+
+- [Microservices Overview](./guide/microservices-overview.md) - Service landscape
+- [Audio Metadata Service](./guide/audio-metadata-service.md) - ffprobe wrapper (1-3s)
+- [Audio Analysis Service](./guide/audio-analysis-service.md) - DSP processing (5-30s)
+- [Audio Feedback Service](./guide/audio-feedback-service.md) - LLM integration (3-10s)
+
+### 📊 Performance & Operations
+
+Performance characteristics and known issues.
+
+- [Performance Characteristics](./guide/operations/performance-characteristics.md) - Timing, bottlenecks, optimization
+- [Technical Debt](./guide/operations/technical-debt.md) - Known issues and future work
+
+### 🛠️ API & Development
+
+API reference and development practices.
+
+- [API Reference](./guide/api-reference.md) - Endpoints and request/response formats
+- [Testing Strategy](./guide/testing.md) - Unit and integration testing
+- [AI Collaboration Guidelines](./guide/ai-guidelines.md) - Working with AI assistants
+- [Releasing & CI/CD](./guide/releasing.md) - Deployment and versioning
+
+## Quick Start
+
+Get the engine running in under 5 minutes:
+
+```bash
+# Clone the repository
+git clone https://github.com/auralyze/engine.git
+cd engine
+
+# Install dependencies
+npm install
+
+# Run tests
+npm test
+
+# Build the package
+npm run build
 ```
 
-1. Call `runAuralyzeSession(input, deps)` from your API tier.
-2. LangGraph executes the five nodes in sequence, short-circuiting when errors occur.
-3. The resulting `EngineState` includes metadata, analysis results, and LLM insight text/suggestions or an error message your API can relay to clients.
+**Use in your project:**
 
-Dive into the guide for detailed instructions, architectural rationale, and CI/CD practices.
+```typescript
+import { runAuralyzeSession } from '@auralyze/engine';
+
+const deps = {
+  audioMetadataClient: { /* implementation */ },
+  audioAnalysisClient: { /* implementation */ },
+  feedbackClient: { /* implementation */ }
+};
+
+const engineState = await runAuralyzeSession({
+  sessionId: 'uuid',
+  uploadUrl: 'https://cdn.example.com/mix.wav',
+  userContext: { daw: 'Ableton', genre: 'trap', experienceLevel: 'intermediate' }
+}, deps);
+
+console.log(engineState.feedback); // AI-generated mix feedback
+```
+
+## Workflow Visualization
+
+```mermaid
+flowchart TB
+    Start([User Uploads Audio]) --> Validate[Validate Input]
+    Validate --> Metadata[Fetch Metadata<br/>1-3 seconds]
+    Metadata --> Analysis[Analyze Audio<br/>5-30 seconds]
+    Analysis --> Feedback[Generate Feedback<br/>3-10 seconds]
+    Feedback --> Persist[Persist to DB]
+    Persist --> End([Return Results])
+
+    style Start fill:#e1f5ff
+    style Validate fill:#f3e5f5
+    style Metadata fill:#fff9c4
+    style Analysis fill:#ffecb3
+    style Feedback fill:#c8e6c9
+    style Persist fill:#e8f5e9
+    style End fill:#e1f5ff
+```
+
+**Total Duration:** 10-60 seconds (sequential execution)
+
+## Key Features
+
+✅ **Consistent State Management** – Zod schemas ensure type safety across services
+✅ **Composable Workflow** – LangGraph nodes are modular and extensible
+✅ **Dependency Injection** – Swap clients for testing (stubs) or production (HTTP)
+✅ **Portable Library** – Use in API, CLI, batch jobs, or anywhere Node.js runs
+✅ **Production Ready** – TypeScript, Vitest, ESLint, comprehensive test coverage
+
+## Technical Stack
+
+- **Languages:** TypeScript (API/Engine), Python (Analysis Service)
+- **Frameworks:** Express, Next.js, LangGraph
+- **Database:** PostgreSQL + Prisma ORM
+- **Audio:** ffprobe, librosa, pyloudnorm, essentia
+- **AI:** OpenAI GPT-4
+- **Infrastructure:** Docker, Docker Compose
+
+## Need Help?
+
+- 📖 **Documentation:** You're here! Explore the sidebar for detailed guides
+- 💬 **Community:** Join discussions on GitHub Issues
+- 🐛 **Bug Reports:** [Create an issue](https://github.com/auralyze/engine/issues)
+- 📧 **Contact:** engineering@auralyze.com
+
+## What's Next?
+
+- **New Engineers:** Start with [Reading Path](./guide/onboarding/reading-path.md)
+- **Understand Audio:** Read [Audio Fundamentals](./guide/domain/audio-fundamentals.md)
+- **Dive into Code:** Explore [System Architecture](./guide/architecture/system-overview.md)
+- **Optimize Performance:** Check [Technical Debt](./guide/operations/technical-debt.md) for improvement opportunities
+
+---
+
+**Documentation Version:** 2.0
+**Last Updated:** November 18, 2025
+**Engine Version:** 1.0.0
+

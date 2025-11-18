@@ -9,15 +9,35 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: 'Guide', link: '/guide/getting-started' },
+      { text: 'Architecture', link: '/guide/architecture/system-overview' },
       { text: 'API Reference', link: '/guide/api-reference' },
-      { text: 'CI & Release', link: '/guide/releasing' },
+      { text: 'Operations', link: '/guide/operations/performance-characteristics' },
     ],
     sidebar: [
       {
         text: 'Onboarding',
         items: [
           { text: 'Getting Started', link: '/guide/getting-started' },
+          { text: 'Reading Path', link: '/guide/onboarding/reading-path' },
           { text: 'Dev Playground', link: '/guide/dev-playground' },
+          { text: 'Contributing', link: '/guide/onboarding/contributing' },
+        ],
+      },
+      {
+        text: 'Domain Knowledge',
+        items: [
+          { text: 'Audio Fundamentals', link: '/guide/domain/audio-fundamentals' },
+          { text: 'Security Model', link: '/guide/domain/security-model' },
+          { text: 'Database Patterns', link: '/guide/domain/database-patterns' },
+          { text: 'Communication Patterns', link: '/guide/domain/communication-patterns' },
+        ],
+      },
+      {
+        text: 'System Architecture',
+        items: [
+          { text: 'System Overview', link: '/guide/architecture/system-overview' },
+          { text: 'Session Lifecycle', link: '/guide/architecture/session-lifecycle' },
+          { text: 'Design Decisions', link: '/guide/architecture/design-decisions' },
         ],
       },
       {
@@ -39,7 +59,14 @@ export default defineConfig({
         ],
       },
       {
-        text: 'API & Ops',
+        text: 'Performance & Operations',
+        items: [
+          { text: 'Performance Characteristics', link: '/guide/operations/performance-characteristics' },
+          { text: 'Technical Debt', link: '/guide/operations/technical-debt' },
+        ],
+      },
+      {
+        text: 'API & Development',
         items: [
           { text: 'API Reference', link: '/guide/api-reference' },
           { text: 'Testing Strategy', link: '/guide/testing' },
