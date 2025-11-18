@@ -16,7 +16,7 @@ Complete onboarding: **4-6 hours** (spread across 2-3 days)
 **Goal:** Understand what Auralyze does and why it exists
 
 📖 **Read:**
-- [Landing Page](../index.md) - Mission and quick overview
+- [Landing Page](/) - Mission and quick overview
 - [Getting Started](../getting-started.md) - Installation and first workflow
 
 **Time:** 20 minutes
@@ -241,13 +241,13 @@ docker-compose logs -f analysis
 
 ### Key URLs (Development)
 
-- **Web App:** http://localhost:3100
-- **API:** http://localhost:3000
-- **Metadata Service:** http://localhost:3001
-- **Analysis Service:** http://localhost:3002
-- **Feedback Service:** http://localhost:3003
-- **PostgreSQL:** localhost:5432
-- **Prisma Studio:** `npx prisma studio` (http://localhost:5555)
+- **Web App:** `http://localhost:3100`
+- **API:** `http://localhost:3000`
+- **Metadata Service:** `http://localhost:3001`
+- **Analysis Service:** `http://localhost:3002`
+- **Feedback Service:** `http://localhost:3003`
+- **PostgreSQL:** `localhost:5432`
+- **Prisma Studio:** `npx prisma studio` (`http://localhost:5555`)
 
 ### Environment Variables (.env)
 
@@ -326,7 +326,10 @@ PORT="300X"
      res.json({ metadata: session.fileInfo });
    }
    ```
-3. Test: `curl http://localhost:3000/api/sessions/<id>/metadata`
+3. Test with curl:
+   ```bash
+   curl http://localhost:3000/api/sessions/<id>/metadata
+   ```
 
 **Time:** 30 minutes
 
