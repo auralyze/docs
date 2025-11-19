@@ -138,6 +138,7 @@ AUDIO_ANALYSIS_API_KEY=<generate-locally>
 # API Service
 NPM_TOKEN=<your-npm-registry-token>  # Required for @auralyze/engine
 DATABASE_URL=${{Postgres.DATABASE_URL}}
+CORS_ORIGIN=https://your-web-app.up.railway.app  # Optional: Explicit origin for CORS
 METADATA_SERVICE_URL=https://metadata-service.railway.internal
 ANALYSIS_SERVICE_URL=https://analysis-service.railway.internal
 METADATA_SERVICE_API_KEY=<from-metadata-service>
@@ -149,6 +150,10 @@ JWT_SECRET=<strong-random-string>
 # Web Service
 NEXT_PUBLIC_API_URL=https://your-api.up.railway.app
 ```
+
+::: tip CORS Configuration
+By default, the API reflects the request origin (allows all origins with credentials). For production, it's recommended to set `CORS_ORIGIN` to your web app's URL for better security. You can specify multiple origins separated by commas: `https://app1.com,https://app2.com`
+:::
 
 **3. Generate API Keys Locally:**
 
