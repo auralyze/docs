@@ -136,6 +136,7 @@ AUDIO_METADATA_API_KEY=<generate-locally>
 AUDIO_ANALYSIS_API_KEY=<generate-locally>
 
 # API Service
+NPM_TOKEN=<your-npm-registry-token>  # Required for @auralyze/engine
 DATABASE_URL=${{Postgres.DATABASE_URL}}
 METADATA_SERVICE_URL=https://metadata-service.railway.internal
 ANALYSIS_SERVICE_URL=https://analysis-service.railway.internal
@@ -159,6 +160,12 @@ npm run generate:api-key
 
 ::: tip Railway Internal Networking
 Services communicate via `*.railway.internal` domains for better performance and security. Add service references in Railway dashboard to enable internal networking.
+:::
+
+::: warning Critical: NPM Token Required (API Service)
+The API service depends on the private `@auralyze/engine` package hosted on **GitHub Packages**. You **must** set the `NPM_TOKEN` environment variable in Railway with a GitHub Personal Access Token that has `read:packages` scope. Without this, Docker build will fail when trying to `npm ci`.
+
+Generate token: GitHub Settings → Developer settings → Personal access tokens → Generate new token (classic) → Select `read:packages` scope → Copy to Railway env vars
 :::
 
 ::: warning Critical: Dockerfile Required
