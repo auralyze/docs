@@ -62,6 +62,7 @@ export default defineConfig({
         text: 'Performance & Operations',
         items: [
           { text: 'Performance Characteristics', link: '/guide/operations/performance-characteristics' },
+          { text: 'Production Deployment', link: '/guide/operations/production-deployment' },
           { text: 'Technical Debt', link: '/guide/operations/technical-debt' },
         ],
       },

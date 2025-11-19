@@ -2,6 +2,10 @@
 
 This guide documents the performance profile of Auralyze, including timing breakdowns, bottlenecks, and optimization strategies.
 
+::: tip Production Deployment
+For handling large files and avoiding timeouts in production, see the [Production Deployment Guide](./production-deployment.md) which covers async job processing and Railway timeout handling.
+:::
+
 ## Workflow Timing Breakdown
 
 ### Total Duration: 10-60 seconds (typical)
