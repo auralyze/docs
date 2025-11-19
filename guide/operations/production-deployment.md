@@ -24,46 +24,42 @@ Auralyze's architecture requires careful handling of long-running audio processi
 
 ### FFmpeg/FFprobe Requirements
 
-::: danger Critical Dependency
-The audio analysis and metadata services **require FFmpeg to be installed** in the deployment environment. Without FFmpeg:
+::: tip Bundled Binaries
+Both services use `-static` packages that **bundle the FFmpeg/ffprobe binaries**:
 
-- Analysis service will fail to process audio files
+
+- `audio-metadata-service`: Uses `ffprobe-static` (includes ffprobe binary)
+- `audio-analysis-service`: Uses `ffmpeg-static` (includes FFmpeg binary)
+
+**No system FFmpeg installation required!** The binaries are included in the npm packages.
 :::
 
-**Solutions:**
+**Deployment:**
 
-1. **Docker (Recommended):** Both services include Dockerfiles that build from source and install FFmpeg
-2. **Nixpacks:** Use `nixpacks.toml` to add FFmpeg to the build (see below)
-3. **Buildpacks:** Ensure FFmpeg is available in the runtime
+Services work out of the box in any environment. Dockerfiles are provided for Railway deployment but **do not install system FFmpeg** - the bundled binaries are sufficient.
 
 **Railway Deployment (Standalone Repos):**
 
-Each service deploys from its own repository. Railway automatically detects the Dockerfile and builds with FFmpeg included.
+Each service deploys from its own repository. Railway automatically detects the Dockerfile and builds the TypeScript code.
 
 ```dockerfile
-# Both services use this pattern:
+# Both services use this simplified pattern:
 FROM node:22-slim
-RUN apt-get update && apt-get install -y ffmpeg
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci  # Installs ffmpeg-static or ffprobe-static
 COPY . .
-RUN npm ci && npm run build
+RUN npm run build
+RUN npm prune --production
 CMD ["node", "dist/index.js"]
 ```
 
 **Key Points:**
 
-- Services build TypeScript from source in Docker
-- FFmpeg installed during Docker build
+- Services use bundled FFmpeg/ffprobe binaries (no system install needed)
+- TypeScript builds from source in Docker
 - Each service is a separate Railway project
 - Services communicate via Railway internal networking (`*.railway.internal`)
-
-#### Alternative: Nixpacks Configuration
-
-If not using Docker, create `nixpacks.toml` in each service:
-
-```toml
-[phases.setup]
-nixPkgs = ["nodejs_22", "ffmpeg-full"]
-```
 
 ### Other Platforms
 
@@ -124,9 +120,9 @@ Separate Projects:
 ```bash
 # Each from its own repository
 1. Database    → Create PostgreSQL in Railway
-2. Metadata    → Deploy with Dockerfile (FFmpeg included)
-3. Analysis    → Deploy with Dockerfile (FFmpeg included)
-4. API         → Deploy with service references
+2. Metadata    → Deploy with Dockerfile (ffprobe-static bundled)
+3. Analysis    → Deploy with Dockerfile (ffmpeg-static bundled)
+4. API         → Deploy with Dockerfile (Prisma generation)
 5. Web         → Deploy with API URL
 ```
 
@@ -163,6 +159,15 @@ npm run generate:api-key
 
 ::: tip Railway Internal Networking
 Services communicate via `*.railway.internal` domains for better performance and security. Add service references in Railway dashboard to enable internal networking.
+:::
+
+::: warning Critical: Dockerfile Required
+All services **must use Docker builds** (not Nixpacks) to ensure:
+
+- **API Service**: Prisma Client is generated before runtime
+- **Audio Services**: ffmpeg-static/ffprobe-static binaries are properly bundled
+
+Railway will auto-detect Dockerfiles. If you see `Error: @prisma/client did not initialize` or `Error: spawn ffprobe ENOENT`, verify your Dockerfile exists and follows the examples in each service README.
 :::
 
 ### Verification

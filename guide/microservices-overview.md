@@ -56,8 +56,10 @@ All services should be on the same network (Railway internal URLs) for optimal p
 
 ## Railway Deployment
 
-::: danger FFmpeg Required
-Both metadata and analysis services **require FFmpeg** to be installed. Dockerfiles are provided in each service repository that handle FFmpeg installation automatically.
+::: tip Bundled Binaries
+Both audio services use `-static` npm packages that **include the FFmpeg/ffprobe binaries**. No system FFmpeg installation required!
+- `audio-metadata-service`: Uses `ffprobe-static`
+- `audio-analysis-service`: Uses `ffmpeg-static`
 :::
 
 ### Deployment Pattern
@@ -88,15 +90,14 @@ web/                             → Web Service
 
 ### Docker Build Process
 
-Railway automatically detects Dockerfiles and builds with FFmpeg:
+Railway automatically detects Dockerfiles:
 
 ```dockerfile
-# Both audio services use this pattern
+# Both audio services use this simplified pattern
 FROM node:22-slim
-RUN apt-get update && apt-get install -y ffmpeg
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci
+RUN npm ci  # Installs dependencies including *-static packages
 COPY . .
 RUN npm run build
 RUN npm prune --production
@@ -105,12 +106,16 @@ CMD ["node", "dist/index.js"]
 
 **Build Steps:**
 
-1. Install Node.js + FFmpeg
-2. Install all dependencies (including TypeScript)
+1. Install Node.js
+2. Install all dependencies (including `ffmpeg-static` or `ffprobe-static`)
 3. Copy source code
 4. Build TypeScript → JavaScript
 5. Remove dev dependencies
 6. Run compiled code
+
+::: info Static Binaries
+The `*-static` packages download platform-specific FFmpeg/ffprobe binaries during `npm install`. These are included in the Docker image automatically.
+:::
 
 ### Service Communication
 
