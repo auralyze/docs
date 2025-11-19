@@ -53,3 +53,120 @@ A healthy production deployment typically uses:
 - OR all three services if you need to customize feedback logic
 
 All services should be on the same network (Railway internal URLs) for optimal performance.
+
+## Railway Deployment
+
+::: danger FFmpeg Required
+Both metadata and analysis services **require FFmpeg** to be installed. Dockerfiles are provided in each service repository that handle FFmpeg installation automatically.
+:::
+
+### Deployment Pattern
+
+Each service deploys as a **separate Railway project** from its own repository:
+
+```
+Repository                        Railway Project
+────────────────────────────────  ───────────────────────────
+audio-metadata-service/          → Metadata Service
+  ├── Dockerfile                    (builds with FFmpeg)
+  ├── src/
+  └── package.json
+
+audio-analysis-service/          → Analysis Service
+  ├── Dockerfile                    (builds with FFmpeg)
+  ├── src/
+  └── package.json
+
+api/                             → API Service
+  ├── src/                          (Nixpacks/npm build)
+  └── package.json
+
+web/                             → Web Service
+  ├── src/                          (Next.js)
+  └── package.json
+```
+
+### Docker Build Process
+
+Railway automatically detects Dockerfiles and builds with FFmpeg:
+
+```dockerfile
+# Both audio services use this pattern
+FROM node:22-slim
+RUN apt-get update && apt-get install -y ffmpeg
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+RUN npm prune --production
+CMD ["node", "dist/index.js"]
+```
+
+**Build Steps:**
+
+1. Install Node.js + FFmpeg
+2. Install all dependencies (including TypeScript)
+3. Copy source code
+4. Build TypeScript → JavaScript
+5. Remove dev dependencies
+6. Run compiled code
+
+### Service Communication
+
+Services use Railway's **private networking** for internal communication:
+
+```bash
+# API calls metadata service
+METADATA_SERVICE_URL=https://metadata-service.railway.internal
+
+# API calls analysis service
+ANALYSIS_SERVICE_URL=https://analysis-service.railway.internal
+```
+
+**Benefits:**
+
+- Faster (no public internet)
+- More secure (not exposed publicly)
+- Free bandwidth (internal traffic)
+- Automatic service discovery
+
+### Deployment Checklist
+
+**1. Generate API Keys:**
+
+```bash
+# In each service repo locally
+npm run generate:api-key
+# Copy output to Railway environment variables
+```
+
+**2. Set Environment Variables in Railway:**
+
+| Service  | Required Variables                                                         |
+| -------- | -------------------------------------------------------------------------- |
+| Metadata | `AUDIO_METADATA_API_KEY`                                                   |
+| Analysis | `AUDIO_ANALYSIS_API_KEY`                                                   |
+| API      | All service URLs, API keys, `DATABASE_URL`, `JWT_SECRET`, `OPENAI_API_KEY` |
+| Web      | `NEXT_PUBLIC_API_URL` (API's public URL)                                   |
+
+**3. Add Service References:**
+
+In Railway API project:
+
+- Add reference to PostgreSQL database
+- Add reference to metadata service (for `.railway.internal` networking)
+- Add reference to analysis service (for `.railway.internal` networking)
+
+**4. Verify Deployment:**
+
+```bash
+curl https://your-metadata-service.up.railway.app/health
+curl https://your-analysis-service.up.railway.app/health
+curl https://your-api.up.railway.app/health
+```
+
+::: tip Complete Setup Guide
+See [Railway Setup Guide](/RAILWAY_SETUP.md) for detailed step-by-step instructions.
+:::
+

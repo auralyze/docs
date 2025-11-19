@@ -100,3 +100,9 @@ const engineState = await runAuralyzeSession(
 | `DOCS_PUBLISH_TOKEN` | Personal access token used by the docs workflow to push built artifacts to the public docs repo (see [Releasing & CI/CD](./releasing.md)). |
 
 You now have a minimal integration. Continue to the next sections to understand state modeling, LangGraph execution, and tooling.
+
+## Next Steps
+
+- **Production Deployment:** See [Production Deployment Guide](./operations/production-deployment.md) for Railway setup, timeout handling, and async job processing
+- **Microservices:** Read [Microservices Overview](./microservices-overview.md) for details on the audio analysis services
+- **Architecture:** Explore [Architecture](./architecture/) to understand the system design

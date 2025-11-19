@@ -22,6 +22,49 @@ Auralyze's architecture requires careful handling of long-running audio processi
 - Long audio files (>5 minutes) may timeout during analysis
 - Slow CDNs can cause timeout even for small files
 
+### FFmpeg/FFprobe Requirements
+
+::: danger Critical Dependency
+The audio analysis and metadata services **require FFmpeg to be installed** in the deployment environment. Without FFmpeg:
+
+- Analysis service will fail to process audio files
+:::
+
+**Solutions:**
+
+1. **Docker (Recommended):** Both services include Dockerfiles that build from source and install FFmpeg
+2. **Nixpacks:** Use `nixpacks.toml` to add FFmpeg to the build (see below)
+3. **Buildpacks:** Ensure FFmpeg is available in the runtime
+
+**Railway Deployment (Standalone Repos):**
+
+Each service deploys from its own repository. Railway automatically detects the Dockerfile and builds with FFmpeg included.
+
+```dockerfile
+# Both services use this pattern:
+FROM node:22-slim
+RUN apt-get update && apt-get install -y ffmpeg
+COPY . .
+RUN npm ci && npm run build
+CMD ["node", "dist/index.js"]
+```
+
+**Key Points:**
+
+- Services build TypeScript from source in Docker
+- FFmpeg installed during Docker build
+- Each service is a separate Railway project
+- Services communicate via Railway internal networking (`*.railway.internal`)
+
+#### Alternative: Nixpacks Configuration
+
+If not using Docker, create `nixpacks.toml` in each service:
+
+```toml
+[phases.setup]
+nixPkgs = ["nodejs_22", "ffmpeg-full"]
+```
+
 ### Other Platforms
 
 | Platform         | HTTP Timeout           | Workaround                   |
@@ -31,6 +74,113 @@ Auralyze's architecture requires careful handling of long-running audio processi
 | Vercel           | 10s (Hobby), 60s (Pro) | Serverless functions + queue |
 | AWS Lambda       | 15 minutes (max)       | Step Functions               |
 | Google Cloud Run | 60 minutes (max)       | Best for long tasks          |
+
+## Railway Deployment (Standalone Repos)
+
+Auralyze deploys as **separate Railway projects** (not a monorepo). Each service runs in its own project with independent deployment:
+
+### Architecture
+
+```
+┌─────────────────────────────────────────┐
+│  PostgreSQL Database                    │
+│  (Railway managed)                      │
+└─────────────────────────────────────────┘
+           ↑
+           │ DATABASE_URL reference
+           │
+┌─────────────────────────────────────────┐
+│  API Service                            │
+│  - Connects to DB                       │
+│  - Calls audio services via internal    │
+│    networking (.railway.internal)       │
+└─────────────────────────────────────────┘
+           ↑
+           │ Public URL
+           │
+┌─────────────────────────────────────────┐
+│  Web Frontend (Next.js)                 │
+│  - Calls API via public URL             │
+└─────────────────────────────────────────┘
+
+Separate Projects:
+┌───────────────────────────────┐
+│ Audio Metadata Service        │
+│ - Dockerfile with FFmpeg      │
+│ - Internal URL only           │
+└───────────────────────────────┘
+
+┌───────────────────────────────┐
+│ Audio Analysis Service        │
+│ - Dockerfile with FFmpeg      │
+│ - Internal URL only           │
+└───────────────────────────────┘
+```
+
+### Quick Start
+
+**1. Deploy Services (in order):**
+
+```bash
+# Each from its own repository
+1. Database    → Create PostgreSQL in Railway
+2. Metadata    → Deploy with Dockerfile (FFmpeg included)
+3. Analysis    → Deploy with Dockerfile (FFmpeg included)
+4. API         → Deploy with service references
+5. Web         → Deploy with API URL
+```
+
+**2. Environment Variables:**
+
+```bash
+# Metadata Service
+AUDIO_METADATA_API_KEY=<generate-locally>
+
+# Analysis Service
+AUDIO_ANALYSIS_API_KEY=<generate-locally>
+
+# API Service
+DATABASE_URL=${{Postgres.DATABASE_URL}}
+METADATA_SERVICE_URL=https://metadata-service.railway.internal
+ANALYSIS_SERVICE_URL=https://analysis-service.railway.internal
+METADATA_SERVICE_API_KEY=<from-metadata-service>
+ANALYSIS_SERVICE_API_KEY=<from-analysis-service>
+FEEDBACK_MODE=openai
+OPENAI_API_KEY=<your-key>
+JWT_SECRET=<strong-random-string>
+
+# Web Service
+NEXT_PUBLIC_API_URL=https://your-api.up.railway.app
+```
+
+**3. Generate API Keys Locally:**
+
+```bash
+# In each service repo
+npm run generate:api-key
+# Copy output to Railway environment variables
+```
+
+::: tip Railway Internal Networking
+Services communicate via `*.railway.internal` domains for better performance and security. Add service references in Railway dashboard to enable internal networking.
+:::
+
+### Verification
+
+After deployment, check service health:
+
+```bash
+curl https://your-metadata-service.up.railway.app/health
+curl https://your-analysis-service.up.railway.app/health
+curl https://your-api-service.up.railway.app/health
+```
+
+All should return `200 OK`.
+
+**See Also:**
+
+- [Complete Railway Setup Guide](/RAILWAY_SETUP.md) - Step-by-step instructions
+- [Railway Deployment Checklist](/RAILWAY_DEPLOYMENT.md) - Troubleshooting
 
 ## Solution: Dual Processing Modes
 

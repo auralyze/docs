@@ -59,9 +59,10 @@ Microservices that power the platform.
 
 ### 📊 Performance & Operations
 
-Performance characteristics and known issues.
+Performance characteristics, deployment, and known issues.
 
 - [Performance Characteristics](./guide/operations/performance-characteristics.md) - Timing, bottlenecks, optimization
+- [Production Deployment](./guide/operations/production-deployment.md) - Railway setup, timeout handling, async jobs
 - [Technical Debt](./guide/operations/technical-debt.md) - Known issues and future work
 
 ### 🛠️ API & Development
