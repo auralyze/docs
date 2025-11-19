@@ -105,4 +105,4 @@ You now have a minimal integration. Continue to the next sections to understand 
 
 - **Production Deployment:** See [Production Deployment Guide](./operations/production-deployment.md) for Railway setup, timeout handling, and async job processing
 - **Microservices:** Read [Microservices Overview](./microservices-overview.md) for details on the audio analysis services
-- **Architecture:** Explore [Architecture](./architecture/) to understand the system design
+- **Architecture:** Explore [System Overview](./architecture/system-overview.md) to understand the system design

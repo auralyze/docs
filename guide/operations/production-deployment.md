@@ -177,10 +177,9 @@ curl https://your-api-service.up.railway.app/health
 
 All should return `200 OK`.
 
-**See Also:**
-
-- [Complete Railway Setup Guide](/RAILWAY_SETUP.md) - Step-by-step instructions
-- [Railway Deployment Checklist](/RAILWAY_DEPLOYMENT.md) - Troubleshooting
+::: tip Additional Resources
+For detailed step-by-step Railway setup instructions and troubleshooting, see `RAILWAY_SETUP.md` and `RAILWAY_DEPLOYMENT.md` in the project root directory.
+:::
 
 ## Solution: Dual Processing Modes
 

@@ -167,6 +167,6 @@ curl https://your-api.up.railway.app/health
 ```
 
 ::: tip Complete Setup Guide
-See [Railway Setup Guide](/RAILWAY_SETUP.md) for detailed step-by-step instructions.
+For detailed step-by-step Railway deployment instructions, see `RAILWAY_SETUP.md` in the project root directory.
 :::
 
