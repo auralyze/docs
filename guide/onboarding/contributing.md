@@ -1,6 +1,6 @@
-# Contributing to Auralyze
+# Contributing to Mixtapelabs
 
-This guide explains the documentation standards, code review process, and best practices for contributing to Auralyze.
+This guide explains the documentation standards, code review process, and best practices for contributing to Mixtapelabs.
 
 ## Documentation Standards
 
@@ -14,7 +14,7 @@ Every file should start with a comprehensive module docblock:
 
 ```typescript
 /**
- * Session management controller for the Auralyze API.
+ * Session management controller for the Mixtapelabs API.
  *
  * Handles HTTP endpoints for creating, retrieving, and managing audio analysis sessions.
  * Orchestrates the workflow engine, manages authentication, and persists results to the database.
@@ -401,7 +401,7 @@ import express from 'express';
 import { PrismaClient } from '@prisma/client';
 
 import { SessionRepository } from '../repositories';
-import type { EngineState } from '@auralyze/engine';
+import type { EngineState } from '@mixtapelabs/engine';
 
 // 2. Constants
 const MAX_SESSIONS_PER_PAGE = 50;
@@ -647,9 +647,9 @@ Before pushing code:
 
 ## Questions?
 
-- **Slack:** #auralyze-dev for general questions
+- **Slack:** #mixtapelabs-dev for general questions
 - **GitHub:** Comment on issues/PRs for specific discussions
-- **Email:** engineering@auralyze.com for sensitive topics
+- **Email:** engineering@mixtapelabs.com for sensitive topics
 
 ---
 

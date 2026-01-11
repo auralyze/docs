@@ -1,6 +1,6 @@
 # System Overview
 
-This guide provides a high-level view of the Auralyze platform architecture, showing how all components fit together to deliver AI-powered mix feedback.
+This guide provides a high-level view of the Mixtapelabs platform architecture, showing how all components fit together to deliver AI-powered mix feedback.
 
 ## Architecture Diagram
 
@@ -19,7 +19,7 @@ graph TB
     end
 
     subgraph "Engine Layer"
-        Engine[Auralyze Engine<br/>LangGraph Workflow]
+        Engine[Mixtapelabs Engine<br/>LangGraph Workflow]
         EngineState[Engine State<br/>Immutable FSM]
     end
 
@@ -82,7 +82,7 @@ graph TB
 **Main API (Node.js + Express)**
 - Central orchestrator for the entire platform
 - Handles authentication, authorization, and session management
-- Coordinates workflow execution via the Auralyze Engine
+- Coordinates workflow execution via the Mixtapelabs Engine
 - Persists session data to PostgreSQL
 
 **Components:**
@@ -98,7 +98,7 @@ graph TB
 
 ### Engine Layer
 
-**Auralyze Engine (@auralyze/engine npm package)**
+**Mixtapelabs Engine (@mixtapelabs/engine npm package)**
 - LangGraph-based workflow orchestration
 - Dependency injection for client flexibility
 - Immutable state machine (FSM) pattern
@@ -155,7 +155,7 @@ Immutable object passed between nodes, containing:
 
 ### Star Topology
 
-Auralyze uses a **centralized star topology** where the main API orchestrates all communication:
+Mixtapelabs uses a **centralized star topology** where the main API orchestrates all communication:
 
 ```
                     Main API

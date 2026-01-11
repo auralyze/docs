@@ -1,14 +1,14 @@
 # Communication Patterns
 
-This guide explains how services communicate within the Auralyze platform, covering HTTP client architecture, error handling, and service discovery.
+This guide explains how services communicate within the Mixtapelabs platform, covering HTTP client architecture, error handling, and service discovery.
 
 ## Service-to-Service Communication
 
-Auralyze uses a **star topology** with synchronous HTTP/JSON communication:
+Mixtapelabs uses a **star topology** with synchronous HTTP/JSON communication:
 
 ```
                     ┌─────────────┐
-                    │  Auralyze   │
+                    │  Mixtapelabs   │
                     │     API     │
                     │ (Main API)  │
                     └──────┬──────┘
@@ -160,7 +160,7 @@ The engine uses a **factory pattern** to select client implementations based on 
  * @returns Configured engine dependencies
  * @throws Error if required environment variables are missing
  */
-export function buildEngineDeps(): AuralyzeEngineDeps {
+export function buildEngineDeps(): MixtapelabsEngineDeps {
   const useStubs = process.env.USE_STUB_CLIENTS === 'true';
 
   if (useStubs) {
@@ -221,7 +221,7 @@ The API's session controller wraps workflow execution in try/catch:
 ```typescript
 try {
   const deps = buildEngineDeps();
-  const engineState = await runAuralyzeSession(input, deps);
+  const engineState = await runMixtapelabsSession(input, deps);
 
   await sessionRepository.save(engineState);
   res.status(201).json({ sessionId: engineState.sessionId, ...engineState });
@@ -472,7 +472,7 @@ app.post('/sessions', async (req, res) => {
 
 // Worker: Process job asynchronously
 queue.process('analyze-session', async (job) => {
-  const engineState = await runAuralyzeSession(job.data, deps);
+  const engineState = await runMixtapelabsSession(job.data, deps);
   await sessionRepository.save(engineState);
 });
 

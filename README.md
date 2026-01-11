@@ -1,6 +1,6 @@
-# Auralyze Engine Documentation (`@auralyze/docs`)
+# Mixtapelabs Engine Documentation (`@mixtapelabs/docs`)
 
-VitePress site that documents the LangGraph-powered `@auralyze/engine`. These docs explain how to run the mix-analysis workflow (`runAuralyzeSession`), wire custom metadata/analysis/LLM clients, and publish guidance for teams integrating the engine into APIs, workers, or CLI tooling.
+VitePress site that documents the LangGraph-powered `@mixtapelabs/engine`. These docs explain how to run the mix-analysis workflow (`runMixtapelabsSession`), wire custom metadata/analysis/LLM clients, and publish guidance for teams integrating the engine into APIs, workers, or CLI tooling.
 
 ## Overview
 
@@ -12,7 +12,7 @@ VitePress site that documents the LangGraph-powered `@auralyze/engine`. These do
 
 | Path                       | Purpose                                                                                                               |
 | -------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `index.md`                 | Landing page outlining the end-to-end `runAuralyzeSession` flow.                                                      |
+| `index.md`                 | Landing page outlining the end-to-end `runMixtapelabsSession` flow.                                                   |
 | `guide/getting-started.md` | Onboarding walkthrough plus install/auth instructions for the private npm package.                                    |
 | `guide/session-state.md`   | Canonical Zod schemas for inputs, metadata, and DSP outputs.                                                          |
 | `guide/langgraph.md`       | Details for every LangGraph node (validate → metadata → analysis → feedback → finalize).                              |
@@ -33,10 +33,10 @@ npm run docs:build   # Emit static site to .vitepress/dist
 npm run docs:preview # Preview the latest production build locally
 ```
 
-VitePress hot reload mirrors the engine’s iterative workflow development: update guides, component diagrams, or code samples and refresh to verify formatting. Keep example snippets in sync with the actual package (`@auralyze/engine`) so users can copy/paste realistic usage such as:
+VitePress hot reload mirrors the engine’s iterative workflow development: update guides, component diagrams, or code samples and refresh to verify formatting. Keep example snippets in sync with the actual package (`@mixtapelabs/engine`) so users can copy/paste realistic usage such as:
 
 ```ts
-const result = await runAuralyzeSession(input, {
+const result = await runMixtapelabsSession(input, {
   audioMetadataClient,
   audioAnalysisClient,
   feedbackClient: new OpenAIFeedbackClient({ model: "gpt-4o-mini" }),
@@ -47,20 +47,20 @@ const result = await runAuralyzeSession(input, {
 
 - Favor task-based sections (e.g., “Injecting custom analysis clients”) rather than passive reference dumps.
 - Highlight environment variables like `OPENAI_API_KEY`, `AURALYZE_ENV`, and downstream DSP credentials near the workflows that require them.
-- Use callouts for private-registry steps (`npm install @auralyze/engine --registry https://npm.pkg.github.com`) so teams avoid auth surprises.
+- Use callouts for private-registry steps (`npm install @mixtapelabs/engine --registry https://npm.pkg.github.com`) so teams avoid auth surprises.
 - Keep diagrams (Mermaid) focused on session state transitions—`validateInput → metadataStep → analysisStep → feedbackStep → finalize`.
 - Update release/test guides whenever scripts in the engine repo change (`npm run typecheck`, `npm run ci`, etc.).
 
 ## Deployment
 
 - `.github/workflows/docs.yml` builds the site on every push to `main`.
-- The action force-pushes `.vitepress/dist` into a companion repo/branch (defaults to `auralyze/engine-docs@gh-pages`).
+- The action force-pushes `.vitepress/dist` into a companion repo/branch (defaults to `mixtapelabs/engine-docs@gh-pages`).
 - Add `DOCS_PUBLISH_TOKEN` (and optional `DOCS_REPOSITORY`, `DOCS_BRANCH`) secrets so the workflow can push over HTTPS.
 - Enable GitHub Pages on the destination repo to publish the site publicly or privately.
 
 ## Related Projects
 
-- [`@auralyze/engine`](https://github.com/auralyze/engine) – LangGraph workflow engine that powers mix analysis.
-- `auralyze/engine-docs` (publish target) – Static artifact repo served via GitHub Pages.
+- [`@mixtapelabs/engine`](https://github.com/mixtapelabs/engine) – LangGraph workflow engine that powers mix analysis.
+- `mixtapelabs/engine-docs` (publish target) – Static artifact repo served via GitHub Pages.
 
 Questions or improvement ideas? Open an issue in the docs repo so updates ship alongside the latest engine changes.

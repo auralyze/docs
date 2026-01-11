@@ -1,26 +1,26 @@
 # Getting Started
 
-This guide shows how to install `@auralyze/engine`, wire your dependency clients, and invoke the workflow from another service.
+This guide shows how to install `@mixtapelabs/engine`, wire your dependency clients, and invoke the workflow from another service.
 
 ## Installation
 
 ```bash
-npm install @auralyze/engine
+npm install @mixtapelabs/engine
 ```
 
 The package ships ESM + CJS bundles and TypeScript declarations so you can consume it from any Node 18+ project.
 
 ## Minimum dependencies
 
-Provide three clients when calling `runAuralyzeSession`:
+Provide three clients when calling `runMixtapelabsSession`:
 
 ```ts
 import {
-  runAuralyzeSession,
-  type AuralyzeEngineDeps,
-} from '@auralyze/engine';
+  runMixtapelabsSession,
+  type MixtapelabsEngineDeps,
+} from '@mixtapelabs/engine';
 
-const deps: AuralyzeEngineDeps = {
+const deps: MixtapelabsEngineDeps = {
   audioMetadataClient: {
     async getMetadata({ url }) {
       // your ffprobe microservice or storage metadata
@@ -63,7 +63,7 @@ const deps: AuralyzeEngineDeps = {
   },
 };
 
-const engineState = await runAuralyzeSession(
+const engineState = await runMixtapelabsSession(
   {
     sessionId: 'mix-42',
     uploadUrl: 'https://cdn.example.com/uploads/mix.wav',

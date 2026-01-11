@@ -1,6 +1,6 @@
 # Testing Strategy
 
-Auralyze Engine ships with a layered Vitest suite and 100% coverage over `src/`.
+Mixtapelabs Engine ships with a layered Vitest suite and 100% coverage over `src/`.
 
 ## Commands
 
@@ -11,24 +11,24 @@ npm run test -- --coverage --run  # includes coverage report
 
 ## Suites
 
-| File                                           | Focus                                                                                            |
-| ---------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| `test/state.test.ts`                           | Zod schemas accept valid shapes and reject invalid ones.                                         |
-| `test/tools.test.ts`                           | Tool wrappers enforce input schemas before hitting injected clients.                             |
-| `test/feedback-prompt.test.ts`                 | Prompt builder includes context, schema enforces suggestion count.                               |
-| `test/config/llm.test.ts`                      | `OpenAIFeedbackClient` handles missing keys, valid responses, malformed JSON, and empty content. |
-| `test/graph/auralyzeGraph.unit.test.ts`        | LangGraph nodes cover happy path plus error propagation.                                         |
-| `test/graph/auralyzeGraph.integration.test.ts` | End-to-end run via `runAuralyzeSession` using fake clients.                                      |
+| File                                              | Focus                                                                                            |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `test/state.test.ts`                              | Zod schemas accept valid shapes and reject invalid ones.                                         |
+| `test/tools.test.ts`                              | Tool wrappers enforce input schemas before hitting injected clients.                             |
+| `test/feedback-prompt.test.ts`                    | Prompt builder includes context, schema enforces suggestion count.                               |
+| `test/config/llm.test.ts`                         | `OpenAIFeedbackClient` handles missing keys, valid responses, malformed JSON, and empty content. |
+| `test/graph/mixtapelabsGraph.unit.test.ts`        | LangGraph nodes cover happy path plus error propagation.                                         |
+| `test/graph/mixtapelabsGraph.integration.test.ts` | End-to-end run via `runMixtapelabsSession` using fake clients.                                   |
 
 ## Writing new tests
 
 ```ts
 import { describe, it, expect, vi } from 'vitest';
-import { buildAuralyzeGraph } from '../src/graph/auralyze-graph';
+import { buildMixtapelabsGraph } from '../src/graph/mixtapelabs-graph';
 
 it('handles new crest-factor node', async () => {
   const deps = { ... };
-  const graph = buildAuralyzeGraph(deps);
+  const graph = buildMixtapelabsGraph(deps);
   const result = await graph.invoke(initialState);
   expect(result.analysis?.transients).toBeDefined();
 });

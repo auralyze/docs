@@ -1,6 +1,6 @@
 # Database Patterns
 
-This guide covers the Prisma ORM patterns and PostgreSQL strategies used throughout Auralyze.
+This guide covers the Prisma ORM patterns and PostgreSQL strategies used throughout Mixtapelabs.
 
 ## Prisma Schema Design
 

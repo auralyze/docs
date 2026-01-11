@@ -1,12 +1,12 @@
 # Design Decisions
 
-This guide explains the key architectural decisions made in Auralyze, including rationale, trade-offs, and alternatives considered.
+This guide explains the key architectural decisions made in Mixtapelabs, including rationale, trade-offs, and alternatives considered.
 
 ## Microservices Architecture
 
 ### Decision: Service Decomposition
 
-Auralyze uses **microservices** with clear domain boundaries:
+Mixtapelabs uses **microservices** with clear domain boundaries:
 - **Main API:** Orchestration, auth, persistence
 - **Metadata Service:** File metadata extraction (ffprobe)
 - **Analysis Service:** DSP processing (Python + audio libraries)
@@ -64,7 +64,7 @@ Auralyze uses **microservices** with clear domain boundaries:
 
 ### Decision: LangGraph for Workflow Engine
 
-Auralyze uses **LangGraph** (from LangChain ecosystem) to orchestrate the workflow across services.
+Mixtapelabs uses **LangGraph** (from LangChain ecosystem) to orchestrate the workflow across services.
 
 ### Rationale
 
@@ -179,7 +179,7 @@ export interface FeedbackClient {
 
 **Factory Pattern:**
 ```typescript
-export function buildEngineDeps(): AuralyzeEngineDeps {
+export function buildEngineDeps(): MixtapelabsEngineDeps {
   if (process.env.USE_STUB_CLIENTS === 'true') {
     return {
       audioMetadataClient: new StubAudioMetadataClient(),
@@ -284,7 +284,7 @@ Services communicate via **synchronous HTTP** with JSON payloads.
 
 ### Decision: PostgreSQL with Prisma ORM
 
-Auralyze uses **PostgreSQL** for relational data storage with **Prisma** as the ORM.
+Mixtapelabs uses **PostgreSQL** for relational data storage with **Prisma** as the ORM.
 
 ### Rationale
 

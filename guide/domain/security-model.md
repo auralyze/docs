@@ -1,12 +1,12 @@
 # Security Model
 
-This guide explains the authentication and authorization mechanisms used throughout the Auralyze platform.
+This guide explains the authentication and authorization mechanisms used throughout the Mixtapelabs platform.
 
 ## Password Security (bcrypt)
 
 ### Hashing Algorithm
 
-Auralyze uses **bcrypt** for password hashing, a deliberately slow, adaptive algorithm based on the Blowfish cipher.
+Mixtapelabs uses **bcrypt** for password hashing, a deliberately slow, adaptive algorithm based on the Blowfish cipher.
 
 **Parameters:**
 - **Algorithm:** bcrypt (Blowfish-based key derivation)

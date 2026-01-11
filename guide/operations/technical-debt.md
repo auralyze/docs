@@ -1,6 +1,6 @@
 # Technical Debt
 
-This document catalogs known technical debt, limitations, and future work across the Auralyze platform. Items are prioritized by severity and impact.
+This document catalogs known technical debt, limitations, and future work across the Mixtapelabs platform. Items are prioritized by severity and impact.
 
 ::: tip Living Document
 This page is continuously updated as issues are discovered, prioritized, and resolved. Check back regularly for the latest technical debt status.
@@ -106,7 +106,7 @@ This page is continuously updated as issues are discovered, prioritized, and res
 
   // Worker: Process job asynchronously
   queue.process('analyze-session', async (job) => {
-    const engineState = await runAuralyzeSession(job.data, deps);
+    const engineState = await runMixtapelabsSession(job.data, deps);
     await sessionRepository.save(engineState);
   });
 
@@ -179,7 +179,7 @@ This page is continuously updated as issues are discovered, prioritized, and res
   // On registration:
   const token = crypto.randomBytes(32).toString('hex');
   await redis.set(`verify:${token}`, userId, 'EX', 24 * 60 * 60);  // 24 hour
-  await sendEmail(email, `https://app.auralyze.com/verify?token=${token}`);
+  await sendEmail(email, `https://app.mixtapelabs.com/verify?token=${token}`);
 
   // On verification:
   app.get('/verify', async (req, res) => {
@@ -220,7 +220,7 @@ This page is continuously updated as issues are discovered, prioritized, and res
 
     const token = crypto.randomBytes(32).toString('hex');
     await redis.set(`reset:${token}`, user.id, 'EX', 60 * 60);  // 1 hour
-    await sendEmail(user.email, `Reset: https://app.auralyze.com/reset?token=${token}`);
+    await sendEmail(user.email, `Reset: https://app.mixtapelabs.com/reset?token=${token}`);
 
     res.json({ success: true });
   });
@@ -465,7 +465,7 @@ This page is continuously updated as issues are discovered, prioritized, and res
   ```
 - Or header-based versioning
   ```typescript
-  Accept: application/vnd.auralyze.v1+json
+  Accept: application/vnd.mixtapelabs.v1+json
   ```
 
 **Effort:** 1 day (routing refactor)

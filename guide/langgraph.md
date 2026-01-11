@@ -1,6 +1,6 @@
 # LangGraph Workflow
 
-The entire engine runtime is defined in `src/graph/auralyze-graph.ts`. The graph contains five nodes executed sequentially:
+The entire engine runtime is defined in `src/graph/mixtapelabs-graph.ts`. The graph contains five nodes executed sequentially:
 
 1. `validateInput`
 2. `metadataStep`

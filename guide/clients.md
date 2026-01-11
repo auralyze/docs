@@ -1,6 +1,6 @@
 # Dependency Injection & Clients
 
-The engine never calls external services on its own. Instead you inject concrete clients through `AuralyzeEngineDeps`.
+The engine never calls external services on its own. Instead you inject concrete clients through `MixtapelabsEngineDeps`.
 
 ## Interfaces
 
@@ -43,7 +43,7 @@ export interface FeedbackClient {
 ### Example: hybrid feedback implementation
 
 ```ts
-import { OpenAIFeedbackClient } from '@auralyze/engine';
+import { OpenAIFeedbackClient } from '@mixtapelabs/engine';
 
 const llmClient = new OpenAIFeedbackClient({ model: 'gpt-4o-mini' });
 

@@ -29,7 +29,7 @@ The `prepare` script ensures `npm publish` always builds fresh artifacts.
 
 ## Docs deployment
 
-A dedicated workflow (`.github/workflows/docs.yml`) builds the VitePress site and pushes the static assets to a separate repo (default `auralyze/engine-docs`) on the `gh-pages` branch.
+A dedicated workflow (`.github/workflows/docs.yml`) builds the VitePress site and pushes the static assets to a separate repo (default `mixtapelabs/engine-docs`) on the `gh-pages` branch.
 
 Configure secrets:
 
@@ -41,7 +41,7 @@ By default the workflow runs on pushes to `main`, but you can restrict it to tag
 
 ## GitHub Pages setup (remote repo)
 
-1. Create a repository (e.g., `auralyze/engine-docs`).
+1. Create a repository (e.g., `mixtapelabs/engine-docs`).
 2. Enable GitHub Pages for the `gh-pages` branch.
 3. Store a PAT as `DOCS_PUBLISH_TOKEN` in the engine repo.
 4. Merge to `main`; the workflow builds docs and pushes to the docs repo, which GitHub Pages serves.

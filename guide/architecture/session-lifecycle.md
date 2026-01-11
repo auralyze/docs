@@ -1,10 +1,10 @@
 # Session Lifecycle
 
-This guide walks through the complete lifecycle of an Auralyze session, from audio upload to feedback delivery.
+This guide walks through the complete lifecycle of an Mixtapelabs session, from audio upload to feedback delivery.
 
 ## Overview
 
-An Auralyze session represents a single audio file's journey through metadata extraction, DSP analysis, and AI-powered feedback generation. The entire lifecycle typically takes 10-60 seconds, depending on file duration and service load.
+An Mixtapelabs session represents a single audio file's journey through metadata extraction, DSP analysis, and AI-powered feedback generation. The entire lifecycle typically takes 10-60 seconds, depending on file duration and service load.
 
 ## Lifecycle Diagram
 
@@ -14,7 +14,7 @@ sequenceDiagram
     participant Web as Web App
     participant CDN as File Storage
     participant API as Main API
-    participant Engine as Auralyze Engine
+    participant Engine as Mixtapelabs Engine
     participant Meta as Metadata Service
     participant Analysis as Analysis Service
     participant Feedback as Feedback Service
@@ -27,7 +27,7 @@ sequenceDiagram
 
     Web->>API: POST /sessions<br/>{url, context}
     API->>API: Verify JWT
-    API->>Engine: runAuralyzeSession()
+    API->>Engine: runMixtapelabsSession()
 
     Engine->>Engine: validateInput()
 
@@ -90,7 +90,7 @@ Uploading directly to CDN (rather than through the API) reduces server load and 
 **Request:**
 ```http
 POST /api/sessions HTTP/1.1
-Cookie: auralyze_token=<jwt>
+Cookie: mixtapelabs_token=<jwt>
 Content-Type: application/json
 
 {
@@ -108,7 +108,7 @@ Content-Type: application/json
 2. Controller extracts user ID from JWT claims
 3. Controller generates unique session ID (UUID)
 4. Controller builds engine dependencies (HTTP clients)
-5. Controller invokes `runAuralyzeSession()`
+5. Controller invokes `runMixtapelabsSession()`
 
 **Duration:** <100ms (before workflow starts)
 
@@ -449,7 +449,7 @@ All errors thrown in workflow nodes are caught by the API controller:
 
 ```typescript
 try {
-  const engineState = await runAuralyzeSession(input, deps);
+  const engineState = await runMixtapelabsSession(input, deps);
   await sessionRepository.save(engineState);
   res.status(201).json({ sessionId: engineState.sessionId, ...engineState });
 } catch (error) {
@@ -479,7 +479,7 @@ For transient failures (network issues, temporary service overload), implement e
 async function retryWorkflow(input: SessionInput, maxRetries = 3) {
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
     try {
-      return await runAuralyzeSession(input, deps);
+      return await runMixtapelabsSession(input, deps);
     } catch (error) {
       if (attempt === maxRetries) throw error;
 
@@ -494,7 +494,7 @@ async function retryWorkflow(input: SessionInput, maxRetries = 3) {
 
 ### Why Persist Complete State?
 
-Auralyze saves the **entire engine state** (including all intermediate results) to the database:
+Mixtapelabs saves the **entire engine state** (including all intermediate results) to the database:
 
 **Benefits:**
 - **Auditing:** Full record of what analysis was performed
@@ -513,7 +513,7 @@ Users can retrieve any past session:
 
 ```http
 GET /api/sessions/550e8400-e29b-41d4-a716-446655440000 HTTP/1.1
-Cookie: auralyze_token=<jwt>
+Cookie: mixtapelabs_token=<jwt>
 ```
 
 **Response:**
@@ -556,7 +556,7 @@ app.post('/sessions', async (req, res) => {
 
 // Worker: Process job asynchronously
 queue.process('analyze-session', async (job) => {
-  const engineState = await runAuralyzeSession(job.data, deps);
+  const engineState = await runMixtapelabsSession(job.data, deps);
   await sessionRepository.save(engineState);
 });
 ```

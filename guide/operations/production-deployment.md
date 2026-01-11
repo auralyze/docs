@@ -1,10 +1,10 @@
 # Production Deployment Guide
 
-This guide covers production deployment considerations, timeout handling, and async job processing for Auralyze.
+This guide covers production deployment considerations, timeout handling, and async job processing for Mixtapelabs.
 
 ## Overview
 
-Auralyze's architecture requires careful handling of long-running audio processing tasks, especially when deployed to platforms with HTTP timeout limits like Railway, Heroku, or Vercel.
+Mixtapelabs's architecture requires careful handling of long-running audio processing tasks, especially when deployed to platforms with HTTP timeout limits like Railway, Heroku, or Vercel.
 
 ## Platform Constraints
 
@@ -73,7 +73,7 @@ CMD ["node", "dist/index.js"]
 
 ## Railway Deployment (Standalone Repos)
 
-Auralyze deploys as **separate Railway projects** (not a monorepo). Each service runs in its own project with independent deployment:
+Mixtapelabs deploys as **separate Railway projects** (not a monorepo). Each service runs in its own project with independent deployment:
 
 ### Architecture
 
@@ -136,7 +136,7 @@ AUDIO_METADATA_API_KEY=<generate-locally>
 AUDIO_ANALYSIS_API_KEY=<generate-locally>
 
 # API Service
-NPM_TOKEN=<your-npm-registry-token>  # Required for @auralyze/engine
+NPM_TOKEN=<your-npm-registry-token>  # Required for @mixtapelabs/engine
 DATABASE_URL=${{Postgres.DATABASE_URL}}
 CORS_ORIGIN=https://your-web-app.up.railway.app  # Optional: Explicit origin for CORS
 METADATA_SERVICE_URL=https://metadata-service.railway.internal
@@ -168,7 +168,7 @@ Services communicate via `*.railway.internal` domains for better performance and
 :::
 
 ::: warning Critical: NPM Token Required (API Service)
-The API service depends on the private `@auralyze/engine` package hosted on **GitHub Packages**. You **must** set the `NPM_TOKEN` environment variable in Railway with a GitHub Personal Access Token that has `read:packages` scope. Without this, Docker build will fail when trying to `npm ci`.
+The API service depends on the private `@mixtapelabs/engine` package hosted on **GitHub Packages**. You **must** set the `NPM_TOKEN` environment variable in Railway with a GitHub Personal Access Token that has `read:packages` scope. Without this, Docker build will fail when trying to `npm ci`.
 
 Generate token: GitHub Settings → Developer settings → Personal access tokens → Generate new token (classic) → Select `read:packages` scope → Copy to Railway env vars
 :::

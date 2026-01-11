@@ -9,7 +9,7 @@ API.
 ## Responsibilities & Architecture
 
 - **Single endpoint** – `POST /metadata` that accepts `{ "path": "/abs/path" }`
-  and responds with a `FileInfo` payload that matches `@auralyze/engine`.
+  and responds with a `FileInfo` payload that matches `@mixtapelabs/engine`.
 - **Authentication** – every request is protected by an `x-api-key` header; the
   key is stored in the service’s `.env` and mirrored into the API via a sync
   script.
@@ -110,10 +110,10 @@ Response (`FileInfo`):
 
 Possible error responses:
 
-| Status | Body                                   | When                                       |
-| ------ | -------------------------------------- | ------------------------------------------ |
-| 400    | `{ "error": "Invalid request body" }`  | Missing/empty `path`                       |
-| 401    | `{ "error": "Unauthorized" }`          | Missing or incorrect `x-api-key`           |
+| Status | Body                                     | When                                     |
+| ------ | ---------------------------------------- | ---------------------------------------- |
+| 400    | `{ "error": "Invalid request body" }`    | Missing/empty `path`                     |
+| 401    | `{ "error": "Unauthorized" }`            | Missing or incorrect `x-api-key`         |
 | 500    | `{ "error": "Failed to read metadata" }` | ffprobe fails or returns incomplete data |
 
 In production we can easily extend the router to inspect the error `code`
@@ -123,7 +123,7 @@ In production we can easily extend the router to inspect the error `code`
 ## Integration with the API
 
 Inside `/api` the `HttpAudioMetadataClient` calls this service and implements
-the `AudioMetadataClient` interface required by `@auralyze/engine`:
+the `AudioMetadataClient` interface required by `@mixtapelabs/engine`:
 
 ```ts
 const metadataClient = new HttpAudioMetadataClient({
@@ -132,16 +132,16 @@ const metadataClient = new HttpAudioMetadataClient({
 });
 ```
 
-The Session Service passes that client to `runAuralyzeSession`, so every engine
+The Session Service passes that client to `runMixtapelabsSession`, so every engine
 run automatically enriches the session with the metadata returned by the
 microservice.
 
 ### Required API Env Vars
 
-| Variable                     | Purpose                                    |
-| ---------------------------- | ------------------------------------------ |
-| `METADATA_SERVICE_URL`       | e.g. `http://audio-metadata-service:4001`   |
-| `METADATA_SERVICE_API_KEY`   | kept in sync with `AUDIO_METADATA_API_KEY` |
+| Variable                   | Purpose                                    |
+| -------------------------- | ------------------------------------------ |
+| `METADATA_SERVICE_URL`     | e.g. `http://audio-metadata-service:4001`  |
+| `METADATA_SERVICE_API_KEY` | kept in sync with `AUDIO_METADATA_API_KEY` |
 
 If either value is missing the API falls back to stub clients, so make sure
 both are configured in real environments.

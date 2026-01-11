@@ -1,6 +1,6 @@
 # Performance Characteristics
 
-This guide documents the performance profile of Auralyze, including timing breakdowns, bottlenecks, and optimization strategies.
+This guide documents the performance profile of Mixtapelabs, including timing breakdowns, bottlenecks, and optimization strategies.
 
 ::: tip Production Deployment
 For handling large files and avoiding timeouts in production, see the [Production Deployment Guide](./production-deployment.md) which covers async job processing and Railway timeout handling.
@@ -440,7 +440,7 @@ Current synchronous workflow:
 
 ```typescript
 app.post('/sessions', async (req, res) => {
-  const engineState = await runAuralyzeSession(input, deps);  // 10-60s
+  const engineState = await runMixtapelabsSession(input, deps);  // 10-60s
   await sessionRepository.save(engineState);
   res.status(201).json(engineState);
 });
@@ -500,7 +500,7 @@ app.get('/jobs/:id', async (req, res) => {
 **Worker:**
 ```typescript
 queue.process('analyze-session', async (job) => {
-  const engineState = await runAuralyzeSession(job.data, deps);
+  const engineState = await runMixtapelabsSession(job.data, deps);
   await sessionRepository.save(engineState);
   return engineState;  // Returned to job.returnvalue
 });
@@ -588,7 +588,7 @@ queue.process('analyze-session', async (job) => {
 **Example (Artillery):**
 ```yaml
 config:
-  target: 'https://api.auralyze.com'
+  target: 'https://api.mixtapelabs.com'
   phases:
     - duration: 300
       arrivalRate: 10  # 10 req/s for 5 min

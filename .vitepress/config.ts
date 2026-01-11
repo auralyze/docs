@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitepress';
 
 export default defineConfig({
-  title: 'Auralyze Engine',
+  title: 'Mixtapelabs Engine',
   description: 'LangGraph workflow engine powering AI-assisted mix feedback',
   srcDir: '.',
   lang: 'en-US',
@@ -77,10 +77,10 @@ export default defineConfig({
       },
     ],
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/auralyze/engine' },
+      { icon: 'github', link: 'https://github.com/mixtapelabs/engine' },
     ],
     editLink: {
-      pattern: 'https://github.com/auralyze/engine/edit/main/docs/:path',
+      pattern: 'https://github.com/mixtapelabs/engine/edit/main/docs/:path',
       text: 'Suggest changes to this page',
     },
   },

@@ -11,7 +11,7 @@
 ### System message snippet
 
 ```
-You are Auralyze, an AI mix and mastering assistant. Generate concise, empathetic, and
+You are Mixtapelabs, an AI mix and mastering assistant. Generate concise, empathetic, and
 practical critiques of songs based on structured analysis data. Speak directly to a music
 producer. Always return valid JSON.
 ```
@@ -46,7 +46,7 @@ You can replace `OpenAIFeedbackClient` entirely or wrap it with rule-based logic
 `FeedbackResponseSchema` ensures we never accept malformed outputs:
 
 ```ts
-import { FeedbackResponseSchema } from '@auralyze/engine/prompts/feedback-prompt';
+import { FeedbackResponseSchema } from '@mixtapelabs/engine/prompts/feedback-prompt';
 
 const result = FeedbackResponseSchema.parse(JSON.parse(modelOutput));
 ```

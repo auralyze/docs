@@ -1,12 +1,12 @@
-# Auralyze Documentation
+# Mixtapelabs Documentation
 
-Welcome to the comprehensive documentation for Auralyze, an AI-powered audio analysis platform that provides intelligent mix feedback to music producers.
+Welcome to the comprehensive documentation for Mixtapelabs, an AI-powered audio analysis platform that provides intelligent mix feedback to music producers.
 
 ## Platform Overview
 
-Auralyze combines audio engineering expertise with large language models to deliver actionable feedback on audio mixes. The platform consists of:
+Mixtapelabs combines audio engineering expertise with large language models to deliver actionable feedback on audio mixes. The platform consists of:
 
-- **Engine** – LangGraph-powered workflow orchestration (`@auralyze/engine`)
+- **Engine** – LangGraph-powered workflow orchestration (`@mixtapelabs/engine`)
 - **Main API** – Authentication, session management, workflow coordination
 - **Microservices** – Metadata extraction, DSP analysis, AI feedback generation
 - **Web App** – React-based user interface
@@ -15,7 +15,7 @@ Auralyze combines audio engineering expertise with large language models to deli
 
 ### 🚀 Getting Started
 
-New to Auralyze? Start here.
+New to Mixtapelabs? Start here.
 
 - [Getting Started](./guide/getting-started.md) - Installation and first workflow
 - [Reading Path](./guide/onboarding/reading-path.md) - Recommended learning path for new engineers
@@ -80,7 +80,7 @@ Get the engine running in under 5 minutes:
 
 ```bash
 # Clone the repository
-git clone https://github.com/auralyze/engine.git
+git clone https://github.com/mixtapelabs/engine.git
 cd engine
 
 # Install dependencies
@@ -96,7 +96,7 @@ npm run build
 **Use in your project:**
 
 ```typescript
-import { runAuralyzeSession } from '@auralyze/engine';
+import { runMixtapelabsSession } from '@mixtapelabs/engine';
 
 const deps = {
   audioMetadataClient: { /* implementation */ },
@@ -104,7 +104,7 @@ const deps = {
   feedbackClient: { /* implementation */ }
 };
 
-const engineState = await runAuralyzeSession({
+const engineState = await runMixtapelabsSession({
   sessionId: 'uuid',
   uploadUrl: 'https://cdn.example.com/mix.wav',
   userContext: { daw: 'Ableton', genre: 'trap', experienceLevel: 'intermediate' }
@@ -156,8 +156,8 @@ flowchart TB
 
 - 📖 **Documentation:** You're here! Explore the sidebar for detailed guides
 - 💬 **Community:** Join discussions on GitHub Issues
-- 🐛 **Bug Reports:** [Create an issue](https://github.com/auralyze/engine/issues)
-- 📧 **Contact:** engineering@auralyze.com
+- 🐛 **Bug Reports:** [Create an issue](https://github.com/mixtapelabs/engine/issues)
+- 📧 **Contact:** engineering@mixtapelabs.com
 
 ## What's Next?
 

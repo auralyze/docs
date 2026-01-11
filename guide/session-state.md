@@ -45,7 +45,7 @@ Each sub-object is optional to keep backward compatibility. Populate whichever m
 The exported Zod schemas (`EngineStateSchema`, `FileInfoSchema`, `AnalysisSchema`, etc.) let you validate inbound state or persisted payloads:
 
 ```ts
-import { EngineStateSchema } from '@auralyze/engine';
+import { EngineStateSchema } from '@mixtapelabs/engine';
 
 const parsed = EngineStateSchema.parse(payloadFromDb);
 ```

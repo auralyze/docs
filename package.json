@@ -1,7 +1,7 @@
 {
-  "name": "@auralyze/docs",
+  "name": "@mixtapelabs/docs",
   "version": "0.0.1",
-  "description": "Auralyze documentation site.",
+  "description": "Mixtapelabs documentation site.",
   "type": "module",
   "private": true,
   "scripts": {

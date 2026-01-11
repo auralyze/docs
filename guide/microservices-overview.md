@@ -1,6 +1,6 @@
 # Microservices Overview
 
-The Auralyze platform splits heavy lifting into three microservices so the API
+The Mixtapelabs platform splits heavy lifting into three microservices so the API
 and engine can stay lean:
 
 ::: warning Timeout Protection
