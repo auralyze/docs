@@ -12,7 +12,7 @@ The package ships ESM + CJS bundles and TypeScript declarations so you can consu
 
 ## Minimum dependencies
 
-Provide three clients when calling `runMixtapeLabsSession`:
+Provide three clients when calling `runMixtapeSession`:
 
 ```ts
 import {

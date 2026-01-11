@@ -5,7 +5,7 @@ These guardrails help keep the proprietary engine safe when collaborating with c
 ## Golden rules
 
 1. **Never share secrets** – reference `OPENAI_API_KEY` or other env vars, but do not paste tokens into chats or code.
-2. **Keep the public API stable** – `runMixtapeLabsSession`, `EngineState`, and client interfaces are our contract with hosting services.
+2. **Keep the public API stable** – `runMixtapeSession`, `EngineState`, and client interfaces are our contract with hosting services.
 3. **No framework coupling** – do not add Express/Fastify adapters here; keep the package transport-agnostic.
 4. **Isolate experimental nodes** – gate new LangGraph nodes behind config flags or feature branches.
 5. **Update docs + tests** – whenever behavior changes, add or adjust Vitest coverage and VitePress sections.
