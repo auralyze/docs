@@ -12,15 +12,15 @@ The package ships ESM + CJS bundles and TypeScript declarations so you can consu
 
 ## Minimum dependencies
 
-Provide three clients when calling `runMixtapelabsSession`:
+Provide three clients when calling `runMixtapeLabsSession`:
 
 ```ts
 import {
-  runMixtapelabsSession,
-  type MixtapelabsEngineDeps,
+  runMixtapeSession,
+  type MixtapeEngineDeps,
 } from '@mixtapelabs/engine';
 
-const deps: MixtapelabsEngineDeps = {
+const deps: MixtapeEngineDeps = {
   audioMetadataClient: {
     async getMetadata({ url }) {
       // your ffprobe microservice or storage metadata
@@ -63,7 +63,7 @@ const deps: MixtapelabsEngineDeps = {
   },
 };
 
-const engineState = await runMixtapelabsSession(
+const engineState = await runMixtapeSession(
   {
     sessionId: 'mix-42',
     uploadUrl: 'https://cdn.example.com/uploads/mix.wav',

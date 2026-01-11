@@ -1,6 +1,6 @@
 # Audio Fundamentals
 
-This guide covers the essential audio engineering concepts that power Mixtapelabs's analysis and feedback capabilities.
+This guide covers the essential audio engineering concepts that power MixtapeLabs's analysis and feedback capabilities.
 
 ## Loudness Metering (EBU R128 Standard)
 
@@ -119,7 +119,7 @@ FFT converts time-domain audio signals into frequency-domain representations, re
 - **Smaller windows:** Better time resolution, worse frequency resolution
 - **Common window functions:** Hann, Hamming (reduce spectral leakage artifacts)
 
-**Implementation in Mixtapelabs:**
+**Implementation in Mixtape:**
 The analysis service computes RMS energy per frequency band and expresses it in dB relative to a reference level. This is compared across bands to assess frequency balance.
 
 ## Stereo Imaging
@@ -187,4 +187,4 @@ The metadata service extracts technical file information using `ffprobe`:
 - [EBU R128 Specification](https://tech.ebu.ch/docs/r/r128.pdf) - Official loudness standard
 - [ITU-R BS.1770-4](https://www.itu.int/rec/R-REC-BS.1770/) - Loudness measurement algorithms
 - [Loudness Penalty](https://www.loudnesspenalty.com/) - Platform-specific loudness analysis tool
-- [pyloudnorm Documentation](https://github.com/csteinmetz1/pyloudnorm) - Python implementation used by Mixtapelabs
+- [pyloudnorm Documentation](https://github.com/csteinmetz1/pyloudnorm) - Python implementation used by Mixtape

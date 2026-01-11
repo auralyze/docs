@@ -1,10 +1,10 @@
-# Mixtapelabs Documentation
+# MixtapeLabs Documentation
 
-Welcome to the comprehensive documentation for Mixtapelabs, an AI-powered audio analysis platform that provides intelligent mix feedback to music producers.
+Welcome to the comprehensive documentation for Mixtape, an AI-powered audio analysis platform that provides intelligent mix feedback to music producers.
 
 ## Platform Overview
 
-Mixtapelabs combines audio engineering expertise with large language models to deliver actionable feedback on audio mixes. The platform consists of:
+Mixtape combines audio engineering expertise with large language models to deliver actionable feedback on audio mixes. The platform consists of:
 
 - **Engine** – LangGraph-powered workflow orchestration (`@mixtapelabs/engine`)
 - **Main API** – Authentication, session management, workflow coordination
@@ -15,7 +15,7 @@ Mixtapelabs combines audio engineering expertise with large language models to d
 
 ### 🚀 Getting Started
 
-New to Mixtapelabs? Start here.
+New to Mixtape? Start here.
 
 - [Getting Started](./guide/getting-started.md) - Installation and first workflow
 - [Reading Path](./guide/onboarding/reading-path.md) - Recommended learning path for new engineers
@@ -96,7 +96,7 @@ npm run build
 **Use in your project:**
 
 ```typescript
-import { runMixtapelabsSession } from '@mixtapelabs/engine';
+import { runMixtapeSession } from '@mixtapelabs/engine';
 
 const deps = {
   audioMetadataClient: { /* implementation */ },
@@ -104,7 +104,7 @@ const deps = {
   feedbackClient: { /* implementation */ }
 };
 
-const engineState = await runMixtapelabsSession({
+const engineState = await runMixtapeSession({
   sessionId: 'uuid',
   uploadUrl: 'https://cdn.example.com/mix.wav',
   userContext: { daw: 'Ableton', genre: 'trap', experienceLevel: 'intermediate' }

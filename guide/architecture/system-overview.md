@@ -1,6 +1,6 @@
 # System Overview
 
-This guide provides a high-level view of the Mixtapelabs platform architecture, showing how all components fit together to deliver AI-powered mix feedback.
+This guide provides a high-level view of the MixtapeLabs platform architecture, showing how all components fit together to deliver AI-powered mix feedback.
 
 ## Architecture Diagram
 
@@ -19,7 +19,7 @@ graph TB
     end
 
     subgraph "Engine Layer"
-        Engine[Mixtapelabs Engine<br/>LangGraph Workflow]
+        Engine[Mixtape Engine<br/>LangGraph Workflow]
         EngineState[Engine State<br/>Immutable FSM]
     end
 
@@ -82,7 +82,7 @@ graph TB
 **Main API (Node.js + Express)**
 - Central orchestrator for the entire platform
 - Handles authentication, authorization, and session management
-- Coordinates workflow execution via the Mixtapelabs Engine
+- Coordinates workflow execution via the Mixtape Engine
 - Persists session data to PostgreSQL
 
 **Components:**
@@ -98,7 +98,7 @@ graph TB
 
 ### Engine Layer
 
-**Mixtapelabs Engine (@mixtapelabs/engine npm package)**
+**Mixtape Engine (@mixtapelabs/engine npm package)**
 - LangGraph-based workflow orchestration
 - Dependency injection for client flexibility
 - Immutable state machine (FSM) pattern
@@ -155,7 +155,7 @@ Immutable object passed between nodes, containing:
 
 ### Star Topology
 
-Mixtapelabs uses a **centralized star topology** where the main API orchestrates all communication:
+Mixtape uses a **centralized star topology** where the main API orchestrates all communication:
 
 ```
                     Main API

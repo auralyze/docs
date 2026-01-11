@@ -1,10 +1,10 @@
 # Production Deployment Guide
 
-This guide covers production deployment considerations, timeout handling, and async job processing for Mixtapelabs.
+This guide covers production deployment considerations, timeout handling, and async job processing for MixtapeLabs.
 
 ## Overview
 
-Mixtapelabs's architecture requires careful handling of long-running audio processing tasks, especially when deployed to platforms with HTTP timeout limits like Railway, Heroku, or Vercel.
+Mixtape's architecture requires careful handling of long-running audio processing tasks, especially when deployed to platforms with HTTP timeout limits like Railway, Heroku, or Vercel.
 
 ## Platform Constraints
 
@@ -73,7 +73,7 @@ CMD ["node", "dist/index.js"]
 
 ## Railway Deployment (Standalone Repos)
 
-Mixtapelabs deploys as **separate Railway projects** (not a monorepo). Each service runs in its own project with independent deployment:
+Mixtape deploys as **separate Railway projects** (not a monorepo). Each service runs in its own project with independent deployment:
 
 ### Architecture
 

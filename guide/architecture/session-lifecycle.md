@@ -1,10 +1,10 @@
 # Session Lifecycle
 
-This guide walks through the complete lifecycle of an Mixtapelabs session, from audio upload to feedback delivery.
+This guide walks through the complete lifecycle of an MixtapeLabs session, from audio upload to feedback delivery.
 
 ## Overview
 
-An Mixtapelabs session represents a single audio file's journey through metadata extraction, DSP analysis, and AI-powered feedback generation. The entire lifecycle typically takes 10-60 seconds, depending on file duration and service load.
+An Mixtape session represents a single audio file's journey through metadata extraction, DSP analysis, and AI-powered feedback generation. The entire lifecycle typically takes 10-60 seconds, depending on file duration and service load.
 
 ## Lifecycle Diagram
 
@@ -14,7 +14,7 @@ sequenceDiagram
     participant Web as Web App
     participant CDN as File Storage
     participant API as Main API
-    participant Engine as Mixtapelabs Engine
+    participant Engine as Mixtape Engine
     participant Meta as Metadata Service
     participant Analysis as Analysis Service
     participant Feedback as Feedback Service
@@ -27,7 +27,7 @@ sequenceDiagram
 
     Web->>API: POST /sessions<br/>{url, context}
     API->>API: Verify JWT
-    API->>Engine: runMixtapelabsSession()
+    API->>Engine: runMixtapeSession()
 
     Engine->>Engine: validateInput()
 
@@ -108,7 +108,7 @@ Content-Type: application/json
 2. Controller extracts user ID from JWT claims
 3. Controller generates unique session ID (UUID)
 4. Controller builds engine dependencies (HTTP clients)
-5. Controller invokes `runMixtapelabsSession()`
+5. Controller invokes `runMixtapeSession()`
 
 **Duration:** <100ms (before workflow starts)
 
@@ -449,7 +449,7 @@ All errors thrown in workflow nodes are caught by the API controller:
 
 ```typescript
 try {
-  const engineState = await runMixtapelabsSession(input, deps);
+  const engineState = await runMixtapeSession(input, deps);
   await sessionRepository.save(engineState);
   res.status(201).json({ sessionId: engineState.sessionId, ...engineState });
 } catch (error) {
@@ -479,7 +479,7 @@ For transient failures (network issues, temporary service overload), implement e
 async function retryWorkflow(input: SessionInput, maxRetries = 3) {
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
     try {
-      return await runMixtapelabsSession(input, deps);
+      return await runMixtapeSession(input, deps);
     } catch (error) {
       if (attempt === maxRetries) throw error;
 
@@ -494,7 +494,7 @@ async function retryWorkflow(input: SessionInput, maxRetries = 3) {
 
 ### Why Persist Complete State?
 
-Mixtapelabs saves the **entire engine state** (including all intermediate results) to the database:
+Mixtape saves the **entire engine state** (including all intermediate results) to the database:
 
 **Benefits:**
 - **Auditing:** Full record of what analysis was performed
@@ -556,7 +556,7 @@ app.post('/sessions', async (req, res) => {
 
 // Worker: Process job asynchronously
 queue.process('analyze-session', async (job) => {
-  const engineState = await runMixtapelabsSession(job.data, deps);
+  const engineState = await runMixtapeSession(job.data, deps);
   await sessionRepository.save(engineState);
 });
 ```

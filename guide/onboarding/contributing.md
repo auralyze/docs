@@ -1,6 +1,6 @@
-# Contributing to Mixtapelabs
+# Contributing to MixtapeLabs
 
-This guide explains the documentation standards, code review process, and best practices for contributing to Mixtapelabs.
+This guide explains the documentation standards, code review process, and best practices for contributing to Mixtape.
 
 ## Documentation Standards
 
@@ -14,7 +14,7 @@ Every file should start with a comprehensive module docblock:
 
 ```typescript
 /**
- * Session management controller for the Mixtapelabs API.
+ * Session management controller for the Mixtape API.
  *
  * Handles HTTP endpoints for creating, retrieving, and managing audio analysis sessions.
  * Orchestrates the workflow engine, manages authentication, and persists results to the database.

@@ -1,6 +1,6 @@
 # Reading Path for New Engineers
 
-Welcome to Mixtapelabs! This guide provides a recommended reading path to help you understand the platform from the ground up.
+Welcome to MixtapeLabs! This guide provides a recommended reading path to help you understand the platform from the ground up.
 
 ::: tip Estimated Time
 Complete onboarding: **4-6 hours** (spread across 2-3 days)
@@ -13,7 +13,7 @@ Complete onboarding: **4-6 hours** (spread across 2-3 days)
 
 ### 1. Project Overview
 
-**Goal:** Understand what Mixtapelabs does and why it exists
+**Goal:** Understand what Mixtape does and why it exists
 
 📖 **Read:**
 - [Landing Page](/) - Mission and quick overview
@@ -22,7 +22,7 @@ Complete onboarding: **4-6 hours** (spread across 2-3 days)
 **Time:** 20 minutes
 
 **Key Takeaways:**
-- Mixtapelabs provides AI-powered mix feedback for music producers
+- Mixtape provides AI-powered mix feedback for music producers
 - Platform consists of API + 3 microservices + engine library
 - Workflow: Upload audio → Metadata → Analysis → AI Feedback
 
@@ -296,7 +296,7 @@ PORT="300X"
 2. Find the `analyze` node
 3. Add console log before analysis call:
    ```typescript
-   async analyze(state: EngineState, deps: MixtapelabsEngineDeps): Promise<Partial<EngineState>> {
+   async analyze(state: EngineState, deps: MixtapeEngineDeps): Promise<Partial<EngineState>> {
      console.log('[analyze] Starting analysis for session:', state.sessionId);
      const analysis = await deps.audioAnalysisClient.analyze({ url: state.uploadUrl });
      console.log('[analyze] Completed:', analysis);

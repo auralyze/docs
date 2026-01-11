@@ -1,6 +1,6 @@
 # Testing Strategy
 
-Mixtapelabs Engine ships with a layered Vitest suite and 100% coverage over `src/`.
+MixtapeLabs Engine ships with a layered Vitest suite and 100% coverage over `src/`.
 
 ## Commands
 
@@ -18,17 +18,17 @@ npm run test -- --coverage --run  # includes coverage report
 | `test/feedback-prompt.test.ts`                    | Prompt builder includes context, schema enforces suggestion count.                               |
 | `test/config/llm.test.ts`                         | `OpenAIFeedbackClient` handles missing keys, valid responses, malformed JSON, and empty content. |
 | `test/graph/mixtapelabsGraph.unit.test.ts`        | LangGraph nodes cover happy path plus error propagation.                                         |
-| `test/graph/mixtapelabsGraph.integration.test.ts` | End-to-end run via `runMixtapelabsSession` using fake clients.                                   |
+| `test/graph/mixtapelabsGraph.integration.test.ts` | End-to-end run via `runMixtapeSession` using fake clients.                                       |
 
 ## Writing new tests
 
 ```ts
 import { describe, it, expect, vi } from 'vitest';
-import { buildMixtapelabsGraph } from '../src/graph/mixtapelabs-graph';
+import { buildMixtapeGraph } from '../src/graph/mixtapelabs-graph';
 
 it('handles new crest-factor node', async () => {
   const deps = { ... };
-  const graph = buildMixtapelabsGraph(deps);
+  const graph = buildMixtapeGraph(deps);
   const result = await graph.invoke(initialState);
   expect(result.analysis?.transients).toBeDefined();
 });

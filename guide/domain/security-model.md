@@ -1,12 +1,12 @@
 # Security Model
 
-This guide explains the authentication and authorization mechanisms used throughout the Mixtapelabs platform.
+This guide explains the authentication and authorization mechanisms used throughout the MixtapeLabs platform.
 
 ## Password Security (bcrypt)
 
 ### Hashing Algorithm
 
-Mixtapelabs uses **bcrypt** for password hashing, a deliberately slow, adaptive algorithm based on the Blowfish cipher.
+Mixtape uses **bcrypt** for password hashing, a deliberately slow, adaptive algorithm based on the Blowfish cipher.
 
 **Parameters:**
 - **Algorithm:** bcrypt (Blowfish-based key derivation)

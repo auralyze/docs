@@ -1,6 +1,6 @@
 # Technical Debt
 
-This document catalogs known technical debt, limitations, and future work across the Mixtapelabs platform. Items are prioritized by severity and impact.
+This document catalogs known technical debt, limitations, and future work across the MixtapeLabs platform. Items are prioritized by severity and impact.
 
 ::: tip Living Document
 This page is continuously updated as issues are discovered, prioritized, and resolved. Check back regularly for the latest technical debt status.
@@ -106,7 +106,7 @@ This page is continuously updated as issues are discovered, prioritized, and res
 
   // Worker: Process job asynchronously
   queue.process('analyze-session', async (job) => {
-    const engineState = await runMixtapelabsSession(job.data, deps);
+    const engineState = await runMixtapeSession(job.data, deps);
     await sessionRepository.save(engineState);
   });
 

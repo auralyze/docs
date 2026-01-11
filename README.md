@@ -1,6 +1,6 @@
-# Mixtapelabs Engine Documentation (`@mixtapelabs/docs`)
+# MixtapeLabs Engine Documentation (`@mixtapelabs/docs`)
 
-VitePress site that documents the LangGraph-powered `@mixtapelabs/engine`. These docs explain how to run the mix-analysis workflow (`runMixtapelabsSession`), wire custom metadata/analysis/LLM clients, and publish guidance for teams integrating the engine into APIs, workers, or CLI tooling.
+VitePress site that documents the LangGraph-powered `@mixtapelabs/engine`. These docs explain how to run the mix-analysis workflow (`runMixtapeSession`), wire custom metadata/analysis/LLM clients, and publish guidance for teams integrating the engine into APIs, workers, or CLI tooling.
 
 ## Overview
 
@@ -12,7 +12,7 @@ VitePress site that documents the LangGraph-powered `@mixtapelabs/engine`. These
 
 | Path                       | Purpose                                                                                                               |
 | -------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `index.md`                 | Landing page outlining the end-to-end `runMixtapelabsSession` flow.                                                   |
+| `index.md`                 | Landing page outlining the end-to-end `runMixtapeSession` flow.                                                       |
 | `guide/getting-started.md` | Onboarding walkthrough plus install/auth instructions for the private npm package.                                    |
 | `guide/session-state.md`   | Canonical Zod schemas for inputs, metadata, and DSP outputs.                                                          |
 | `guide/langgraph.md`       | Details for every LangGraph node (validate → metadata → analysis → feedback → finalize).                              |
@@ -36,7 +36,7 @@ npm run docs:preview # Preview the latest production build locally
 VitePress hot reload mirrors the engine’s iterative workflow development: update guides, component diagrams, or code samples and refresh to verify formatting. Keep example snippets in sync with the actual package (`@mixtapelabs/engine`) so users can copy/paste realistic usage such as:
 
 ```ts
-const result = await runMixtapelabsSession(input, {
+const result = await runMixtapeSession(input, {
   audioMetadataClient,
   audioAnalysisClient,
   feedbackClient: new OpenAIFeedbackClient({ model: "gpt-4o-mini" }),
@@ -46,7 +46,7 @@ const result = await runMixtapelabsSession(input, {
 ## Authoring Content
 
 - Favor task-based sections (e.g., “Injecting custom analysis clients”) rather than passive reference dumps.
-- Highlight environment variables like `OPENAI_API_KEY`, `AURALYZE_ENV`, and downstream DSP credentials near the workflows that require them.
+- Highlight environment variables like `OPENAI_API_KEY`, `MIXTAPELABS_ENV`, and downstream DSP credentials near the workflows that require them.
 - Use callouts for private-registry steps (`npm install @mixtapelabs/engine --registry https://npm.pkg.github.com`) so teams avoid auth surprises.
 - Keep diagrams (Mermaid) focused on session state transitions—`validateInput → metadataStep → analysisStep → feedbackStep → finalize`.
 - Update release/test guides whenever scripts in the engine repo change (`npm run typecheck`, `npm run ci`, etc.).
