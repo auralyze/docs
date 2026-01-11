@@ -1,6 +1,6 @@
 # Production Deployment Guide
 
-This guide covers production deployment considerations, timeout handling, and async job processing for MixtapeLabs.
+This guide covers production deployment considerations, timeout handling, and async job processing for Mixtape.
 
 ## Overview
 

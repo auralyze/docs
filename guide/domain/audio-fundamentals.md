@@ -1,6 +1,6 @@
 # Audio Fundamentals
 
-This guide covers the essential audio engineering concepts that power MixtapeLabs's analysis and feedback capabilities.
+This guide covers the essential audio engineering concepts that power Mixtape's analysis and feedback capabilities.
 
 ## Loudness Metering (EBU R128 Standard)
 

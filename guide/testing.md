@@ -1,6 +1,6 @@
 # Testing Strategy
 
-MixtapeLabs Engine ships with a layered Vitest suite and 100% coverage over `src/`.
+Mixtape Engine ships with a layered Vitest suite and 100% coverage over `src/`.
 
 ## Commands
 

@@ -1,6 +1,6 @@
 # Security Model
 
-This guide explains the authentication and authorization mechanisms used throughout the MixtapeLabs platform.
+This guide explains the authentication and authorization mechanisms used throughout the Mixtape platform.
 
 ## Password Security (bcrypt)
 

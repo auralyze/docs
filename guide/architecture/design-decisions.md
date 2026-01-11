@@ -1,6 +1,6 @@
 # Design Decisions
 
-This guide explains the key architectural decisions made in MixtapeLabs, including rationale, trade-offs, and alternatives considered.
+This guide explains the key architectural decisions made in Mixtape, including rationale, trade-offs, and alternatives considered.
 
 ## Microservices Architecture
 

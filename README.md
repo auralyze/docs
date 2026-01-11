@@ -1,4 +1,4 @@
-# MixtapeLabs Engine Documentation (`@mixtapelabs/docs`)
+# Mixtape Engine Documentation (`@mixtapelabs/docs`)
 
 VitePress site that documents the LangGraph-powered `@mixtapelabs/engine`. These docs explain how to run the mix-analysis workflow (`runMixtapeSession`), wire custom metadata/analysis/LLM clients, and publish guidance for teams integrating the engine into APIs, workers, or CLI tooling.
 

@@ -1,4 +1,4 @@
-# MixtapeLabs Documentation
+# Mixtape Documentation
 
 Welcome to the comprehensive documentation for Mixtape, an AI-powered audio analysis platform that provides intelligent mix feedback to music producers.
 

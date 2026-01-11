@@ -1,6 +1,6 @@
 # Session Lifecycle
 
-This guide walks through the complete lifecycle of an MixtapeLabs session, from audio upload to feedback delivery.
+This guide walks through the complete lifecycle of an Mixtape session, from audio upload to feedback delivery.
 
 ## Overview
 

@@ -1,4 +1,4 @@
-# Contributing to MixtapeLabs
+# Contributing to Mixtape
 
 This guide explains the documentation standards, code review process, and best practices for contributing to Mixtape.
 

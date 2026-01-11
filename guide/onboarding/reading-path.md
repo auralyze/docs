@@ -1,6 +1,6 @@
 # Reading Path for New Engineers
 
-Welcome to MixtapeLabs! This guide provides a recommended reading path to help you understand the platform from the ground up.
+Welcome to Mixtape! This guide provides a recommended reading path to help you understand the platform from the ground up.
 
 ::: tip Estimated Time
 Complete onboarding: **4-6 hours** (spread across 2-3 days)

@@ -1,6 +1,6 @@
 # Performance Characteristics
 
-This guide documents the performance profile of MixtapeLabs, including timing breakdowns, bottlenecks, and optimization strategies.
+This guide documents the performance profile of Mixtape, including timing breakdowns, bottlenecks, and optimization strategies.
 
 ::: tip Production Deployment
 For handling large files and avoiding timeouts in production, see the [Production Deployment Guide](./production-deployment.md) which covers async job processing and Railway timeout handling.

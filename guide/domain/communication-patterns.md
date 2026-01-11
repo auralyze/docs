@@ -1,6 +1,6 @@
 # Communication Patterns
 
-This guide explains how services communicate within the MixtapeLabs platform, covering HTTP client architecture, error handling, and service discovery.
+This guide explains how services communicate within the Mixtape platform, covering HTTP client architecture, error handling, and service discovery.
 
 ## Service-to-Service Communication
 

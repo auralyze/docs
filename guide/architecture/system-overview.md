@@ -1,6 +1,6 @@
 # System Overview
 
-This guide provides a high-level view of the MixtapeLabs platform architecture, showing how all components fit together to deliver AI-powered mix feedback.
+This guide provides a high-level view of the Mixtape platform architecture, showing how all components fit together to deliver AI-powered mix feedback.
 
 ## Architecture Diagram
 
